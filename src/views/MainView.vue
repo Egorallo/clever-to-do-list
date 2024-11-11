@@ -1,3 +1,11 @@
-<script></script>
+<script>
+import TaskList from '@/components/TaskList.vue';
 
-<template>tasks here</template>
+export default {
+  components: {
+    TaskList,
+  },
+};
+</script>
+
+<template><TaskList></TaskList></template>
