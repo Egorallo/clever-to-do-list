@@ -1,18 +1,32 @@
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   data() {
     return {
-      tasks: [
-        { id: 0, title: 'New design for mobile UI', description: 'Description 1', done: false },
-        { id: 1, title: 'Wash nuggets in place', description: 'Description 2', done: false },
-        {
-          id: 2,
-          title: 'Near the death experience',
-          description: 'Description 3',
-          done: false,
-        },
-      ],
+      // tasks: [
+      //   { id: 0, title: 'New design for mobile UI', description: 'Description 1', done: false },
+      //   { id: 1, title: 'Wash nuggets in place', description: 'Description 2', done: false },
+      //   {
+      //     id: 2,
+      //     title: 'Near the death experience',
+      //     description: 'Description 3',
+      //     done: false,
+      //   },
+      //   { id: 3, title: 'Wash nuggets in place', description: 'Description 2', done: false },
+      // ],
     };
+  },
+  methods: {
+    goToAddTask() {
+      this.$router.push('/add-task');
+    },
+  },
+  computed: {
+    ...mapGetters(['allTasks']),
+    tasks() {
+      return this.allTasks;
+    },
   },
 };
 </script>
@@ -32,7 +46,7 @@ export default {
         </div>
       </div>
     </div>
-    <button class="task-list__button">+ Add a new task</button>
+    <button class="task-list__button" @click="goToAddTask">+ Add a new task</button>
   </div>
 </template>
 
@@ -63,10 +77,10 @@ export default {
 }
 
 .task-list__button {
-  margin: 80px auto 0 auto;
+  margin-top: 50px;
   width: 100%;
   max-width: 400px;
-  padding: 15px;
+  padding: 17px;
   border: none;
   border-radius: 15px;
   background-color: #ff7300;
