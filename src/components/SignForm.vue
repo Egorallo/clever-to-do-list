@@ -42,7 +42,7 @@ export default {
 
 <style scoped>
 .sign-form {
-  max-width: 762px;
+  max-width: 400px;
   width: 100%;
   margin: 100px auto 0;
 }
