@@ -33,7 +33,12 @@ export default {
     <div class="task-list__container">
       <div class="task-list__container__quantity">0 Tasks Today</div>
       <div class="task-list__container__tasks">
-        <TaskListItem v-for="task in tasks" :key="task.id" :task="task" />
+        <TaskListItem
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @click="this.$router.push(`/edit-task/${task.id}`)"
+        />
       </div>
     </div>
     <button class="task-list__button" @click="goToAddTask">+ Add a new task</button>

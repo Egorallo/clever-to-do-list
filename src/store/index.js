@@ -21,6 +21,10 @@ const store = createStore({
     removeTask(state, taskId) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
+    updateTask(state, task) {
+      const index = state.tasks.findIndex((t) => t.id === task.id);
+      state.tasks[index] = task;
+    },
   },
   actions: {
     addTask({ commit }, task) {
@@ -29,10 +33,16 @@ const store = createStore({
     removeTask({ commit }, taskId) {
       commit('removeTask', taskId);
     },
+    updateTask({ commit }, task) {
+      commit('updateTask', task);
+    },
   },
   getters: {
     allTasks(state) {
       return state.tasks;
+    },
+    getTaskById(state) {
+      return (taskId) => state.tasks.find((task) => task.id === taskId);
     },
   },
 });

@@ -22,8 +22,6 @@ export default {
   methods: {
     ...mapActions(['addTask']),
     addNewTask() {
-      console.log('afas');
-
       const newTask = {
         id: Date.now(),
         title: this.task.title,
