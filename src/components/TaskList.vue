@@ -3,19 +3,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   data() {
-    return {
-      // tasks: [
-      //   { id: 0, title: 'New design for mobile UI', description: 'Description 1', done: false },
-      //   { id: 1, title: 'Wash nuggets in place', description: 'Description 2', done: false },
-      //   {
-      //     id: 2,
-      //     title: 'Near the death experience',
-      //     description: 'Description 3',
-      //     done: false,
-      //   },
-      //   { id: 3, title: 'Wash nuggets in place', description: 'Description 2', done: false },
-      // ],
-    };
+    return {};
   },
   methods: {
     goToAddTask() {
@@ -52,7 +40,6 @@ export default {
 
 <style scoped>
 .task-list {
-  max-width: 762px;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -77,6 +64,7 @@ export default {
 }
 
 .task-list__button {
+  font-size: 16px;
   margin-top: 50px;
   width: 100%;
   max-width: 400px;
