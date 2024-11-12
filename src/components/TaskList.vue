@@ -1,7 +1,11 @@
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
+import TaskListItem from './TaskListItem.vue';
 
 export default {
+  components: {
+    TaskListItem,
+  },
   data() {
     return {
       hoveredOn: null,
@@ -10,10 +14,6 @@ export default {
   methods: {
     goToAddTask() {
       this.$router.push('/add-task');
-    },
-    ...mapActions(['removeTask']),
-    delTask(taskId) {
-      this.removeTask(taskId);
     },
   },
   computed: {
@@ -33,30 +33,7 @@ export default {
     <div class="task-list__container">
       <div class="task-list__container__quantity">0 Tasks Today</div>
       <div class="task-list__container__tasks">
-        <div
-          class="task-list__container__task"
-          @mouseover="hoveredOn = task.id"
-          @mouseleave="hoveredOn = null"
-          v-for="task in tasks"
-          :key="task.id"
-        >
-          <input type="checkbox" class="task__checkbox" :id="task.id" />
-          <label :for="task.id" class="task__circle"></label>
-          <label :for="task.id" class="task__title">{{ task.title }}</label>
-          <Transition name="fade">
-            <button
-              @click="delTask(task.id)"
-              v-show="hoveredOn === task.id"
-              class="task__delete__button"
-            >
-              <img
-                class="task__delete__button__img"
-                src="../assets/icons/trash.svg"
-                alt="Delete task"
-              />
-            </button>
-          </Transition>
-        </div>
+        <TaskListItem v-for="task in tasks" :key="task.id" :task="task" />
       </div>
     </div>
     <button class="task-list__button" @click="goToAddTask">+ Add a new task</button>
@@ -106,99 +83,9 @@ export default {
   background-color: #ff9c4d;
 }
 
-.task__title {
-  font-size: 16px;
-  color: #646363;
-}
-
 .task-list__container__tasks {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-.task-list__container__task {
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5px;
-  height: 45px;
-  transition:
-    background-color 0.5s ease,
-    box-shadow 0.5s ease;
-  border: none;
-  border-radius: 15px;
-  position: relative;
-}
-
-.task-list__container__task:hover {
-  background-color: #f5f5f5;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.task__checkbox {
-  display: none;
-}
-
-.task__circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid orange;
-  display: inline-flex;
-  flex-shrink: 0;
-  flex-grow: 0;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.task__circle::after {
-  content: '';
-  display: none;
-  width: 16px;
-  height: 16px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5L10 17L20 7'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.task__checkbox:checked + .task__circle {
-  background-color: orange;
-  border-color: orange;
-}
-
-.task__checkbox:checked + .task__circle::after {
-  display: block;
-}
-
-.task__delete__button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-  position: absolute;
-  right: 0px;
-}
-
-.task__delete__button__img {
-  width: 20px;
-  height: 20px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>
