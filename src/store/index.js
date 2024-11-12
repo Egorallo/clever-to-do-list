@@ -18,10 +18,16 @@ const store = createStore({
     addTask(state, task) {
       state.tasks.push(task);
     },
+    removeTask(state, taskId) {
+      state.tasks = state.tasks.filter((task) => task.id !== taskId);
+    },
   },
   actions: {
     addTask({ commit }, task) {
       commit('addTask', task);
+    },
+    removeTask({ commit }, taskId) {
+      commit('removeTask', taskId);
     },
   },
   getters: {

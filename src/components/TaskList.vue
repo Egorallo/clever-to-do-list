@@ -1,13 +1,19 @@
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   data() {
-    return {};
+    return {
+      hoveredOn: null,
+    };
   },
   methods: {
     goToAddTask() {
       this.$router.push('/add-task');
+    },
+    ...mapActions(['removeTask']),
+    delTask(taskId) {
+      this.removeTask(taskId);
     },
   },
   computed: {
@@ -27,10 +33,29 @@ export default {
     <div class="task-list__container">
       <div class="task-list__container__quantity">0 Tasks Today</div>
       <div class="task-list__container__tasks">
-        <div class="task-list__container__task" v-for="task in tasks" :key="task.id">
+        <div
+          class="task-list__container__task"
+          @mouseover="hoveredOn = task.id"
+          @mouseleave="hoveredOn = null"
+          v-for="task in tasks"
+          :key="task.id"
+        >
           <input type="checkbox" class="task__checkbox" :id="task.id" />
           <label :for="task.id" class="task__circle"></label>
           <label :for="task.id" class="task__title">{{ task.title }}</label>
+          <Transition name="fade">
+            <button
+              @click="delTask(task.id)"
+              v-show="hoveredOn === task.id"
+              class="task__delete__button"
+            >
+              <img
+                class="task__delete__button__img"
+                src="../assets/icons/trash.svg"
+                alt="Delete task"
+              />
+            </button>
+          </Transition>
         </div>
       </div>
     </div>
@@ -96,7 +121,20 @@ export default {
   user-select: none;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 5px;
+  height: 45px;
+  transition:
+    background-color 0.5s ease,
+    box-shadow 0.5s ease;
+  border: none;
+  border-radius: 15px;
+  position: relative;
+}
+
+.task-list__container__task:hover {
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .task__checkbox {
@@ -137,5 +175,30 @@ export default {
 
 .task__checkbox:checked + .task__circle::after {
   display: block;
+}
+
+.task__delete__button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  position: absolute;
+  right: 0px;
+}
+
+.task__delete__button__img {
+  width: 20px;
+  height: 20px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
