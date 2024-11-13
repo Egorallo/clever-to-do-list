@@ -51,7 +51,7 @@ export default {
       </div>
       <div class="add-task__description">
         <textarea
-          v-model="task.description"
+          v-model.trim="task.description"
           class="add-task__description__input"
           placeholder="Enter your task description"
         ></textarea>
@@ -65,10 +65,12 @@ export default {
           :max="maxDate"
         />
       </div>
+      <div class="add-task__button__wrapper">
+        <button class="add-task__button" @click="addTask(this.task)" :disabled="isTitleEmpty">
+          Finish adding the task
+        </button>
+      </div>
     </div>
-    <button class="add-task__button" @click="addTask(this.task)" :disabled="isTitleEmpty">
-      Finish adding the task
-    </button>
   </div>
 </template>
 
@@ -115,17 +117,22 @@ export default {
 .add-task__title__input {
   font-family: 'Mulish', serif;
   font-size: 16px;
-  width: 100%;
+  height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
+}
+
+.add-task__description {
+  max-height: 500px;
+  height: 53vh;
 }
 
 .add-task__description__input {
   font-family: 'Mulish', serif;
   color: #646363;
   width: 100%;
-  min-height: 551px;
+  height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
@@ -136,10 +143,12 @@ export default {
 .add-task__title__input:focus {
   outline: none;
 }
-
+.add-task__button__wrapper {
+  border-top: 1px solid #d4d4d4;
+  padding-top: 10px;
+}
 .add-task__button {
   font-size: 16px;
-  margin-top: 50px;
   width: 100%;
   max-width: 400px;
   padding: 17px;

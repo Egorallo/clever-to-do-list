@@ -5,6 +5,8 @@ export default {
     return {
       taskId: this.$route.params.id,
       task: { title: '', description: '', date: '' },
+      todaysDate: new Date().toISOString().split('T')[0],
+      maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
     };
   },
 
@@ -51,13 +53,19 @@ export default {
       </div>
       <div class="edit-task__description">
         <textarea
-          v-model="task.description"
+          v-model.trim="task.description"
           class="edit-task__description__input"
           placeholder="Update your task description"
         ></textarea>
       </div>
       <div class="edit-task__date">
-        <div>{{ task.date }}</div>
+        <input
+          class="edit-task__date__input"
+          type="date"
+          v-model="task.date"
+          :min="todaysDate"
+          :max="maxDate"
+        />
       </div>
       <div class="edit-task__button__container">
         <button
@@ -82,6 +90,8 @@ export default {
   max-width: 400px;
   gap: 15px;
   justify-content: flex-end;
+  border-top: 1px solid #d4d4d4;
+  padding-top: 10px;
 }
 
 .edit-task__button {
@@ -174,11 +184,15 @@ export default {
   border: none;
 }
 
+.edit-task__description {
+  height: 53vh;
+}
+
 .edit-task__description__input {
   font-family: 'Mulish', serif;
   color: #646363;
   width: 100%;
-  min-height: 561px;
+  height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
