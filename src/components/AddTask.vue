@@ -7,7 +7,13 @@ export default {
       task: {
         title: '',
         description: '',
+        done: false,
+        date: new Date().toISOString().split('T')[0],
       },
+      todaysDate: new Date().toISOString().split('T')[0],
+      maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+        .toISOString()
+        .split('T')[0],
     };
   },
   computed: {
@@ -27,10 +33,12 @@ export default {
         title: this.task.title,
         description: this.task.description,
         done: false,
+        date: this.task.date,
       };
       this.addTask(newTask);
       this.task.title = '';
       this.task.description = '';
+      this.task.date = new Date().toISOString().split('T')[0];
       console.log('Task added:', newTask);
     },
   },
@@ -60,6 +68,15 @@ export default {
           class="add-task__description__input"
           placeholder="Enter your task description"
         ></textarea>
+      </div>
+      <div class="add-task__date">
+        <input
+          class="add-task__date__input"
+          type="date"
+          v-model="task.date"
+          :min="todaysDate"
+          :max="maxDate"
+        />
       </div>
     </div>
     <button class="add-task__button" @click="addNewTask" :disabled="isTitleEmpty">
@@ -121,7 +138,7 @@ export default {
   font-family: 'Mulish', serif;
   color: #646363;
   width: 100%;
-  min-height: 600px;
+  min-height: 551px;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;

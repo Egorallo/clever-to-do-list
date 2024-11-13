@@ -64,6 +64,9 @@ export default {
           placeholder="Update your task description"
         ></textarea>
       </div>
+      <div v-if="task" class="edit-task__date">
+        <div>{{ task.date }}</div>
+      </div>
       <div v-if="task" class="edit-task__button__container">
         <button class="edit-task__button update" @click="saveTask" :disabled="isTitleEmpty">
           Update
@@ -179,7 +182,7 @@ export default {
   font-family: 'Mulish', serif;
   color: #646363;
   width: 100%;
-  min-height: 600px;
+  min-height: 561px;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;

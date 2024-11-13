@@ -24,7 +24,13 @@ export default {
 
 <template>
   <div class="task-list-item" @mouseover="hoveredOn = task.id" @mouseleave="hoveredOn = null">
-    <input type="checkbox" @click.stop class="task-list-item__checkbox" :id="task.id" />
+    <input
+      type="checkbox"
+      :checked="task.done"
+      @click.stop
+      class="task-list-item__checkbox"
+      :id="task.id"
+    />
     <label :for="task.id" @click.stop class="task-list-item__circle"></label>
     <label class="task-list-item__title">{{ task.title }}</label>
     <Transition name="fade">
