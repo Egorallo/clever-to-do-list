@@ -1,6 +1,6 @@
 <script>
-import { mapGetters } from 'vuex';
 import TaskListItem from './TaskListItem.vue';
+import { getTasks } from '../../firestore';
 
 export default {
   components: {
@@ -9,18 +9,29 @@ export default {
   data() {
     return {
       hoveredOn: null,
+      tasks: [],
+      loading: true,
     };
   },
   methods: {
     goToAddTask() {
       this.$router.push('/add-task');
     },
-  },
-  computed: {
-    ...mapGetters(['allTasks']),
-    tasks() {
-      return this.allTasks;
+    async getAllTasks() {
+      this.loading = true;
+      this.tasks = await getTasks();
+      this.loading = false;
     },
+    goToEditTask(taskId) {
+      this.$router.push(`/edit-task/${taskId}`);
+    },
+    removeTaskFromList(taskId) {
+      this.tasks = this.tasks.filter((task) => task.id !== taskId);
+    },
+  },
+  mounted() {
+    this.getAllTasks();
+    console.log('Tasks in parent component:', this.tasks);
   },
 };
 </script>
@@ -31,13 +42,14 @@ export default {
       <div class="task-list__header__text">Your task manager</div>
     </div>
     <div class="task-list__container">
-      <div class="task-list__container__quantity">0 Tasks Today</div>
-      <transition-group name="fade" tag="div" class="task-list__container__tasks">
+      <div class="task-list__container__quantity">{{ this.tasks.length }} Tasks Today</div>
+      <transition-group v-if="!loading" name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem
           v-for="task in tasks"
           :key="task.id"
           :task="task"
           @click="this.$router.push(`/edit-task/${task.id}`)"
+          @delete-task="removeTaskFromList"
         />
       </transition-group>
     </div>

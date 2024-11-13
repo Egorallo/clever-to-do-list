@@ -1,5 +1,7 @@
 <script>
 import { mapActions } from 'vuex';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
 
 export default {
   props: {
@@ -15,8 +17,12 @@ export default {
   },
   methods: {
     ...mapActions(['removeTask']),
-    delTask(taskId) {
-      this.removeTask(taskId);
+    async deleteTask(taskId) {
+      const taskDocRef = doc(db, 'tasks', taskId);
+      await deleteDoc(taskDocRef);
+      console.log('Task deleted');
+      this.$emit('delete-task', taskId);
+      this.$router.push('/');
     },
   },
 };
@@ -35,7 +41,7 @@ export default {
     <label class="task-list-item__title">{{ task.title }}</label>
     <Transition name="fade">
       <button
-        @click.stop="delTask(task.id)"
+        @click.stop="deleteTask(task.id)"
         v-show="hoveredOn === task.id"
         class="task-list-item__delete__button"
       >

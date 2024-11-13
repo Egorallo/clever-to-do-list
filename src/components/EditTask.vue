@@ -1,40 +1,33 @@
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { deleteTask, updateTask, getTaskById } from '../../firestore';
 export default {
   data() {
     return {
-      taskId: parseInt(this.$route.params.id, 10),
-      task: null,
+      taskId: this.$route.params.id,
+      task: { title: '', description: '', date: '' },
     };
   },
 
-  computed: {
-    ...mapGetters(['getTaskById']),
-    isTitleEmpty() {
-      return this.task.title.trim() === '';
-    },
-  },
-
-  mounted() {
-    this.task = this.getTaskById(this.taskId);
-  },
-
   methods: {
-    ...mapActions(['updateTask', 'removeTask']),
-    saveTask() {
-      const updatedTask = {
-        ...this.task,
-        done: false,
-      };
-      this.updateTask(updatedTask);
-      this.task.title = '';
-      this.task.description = '';
-      console.log('Task updated:', updatedTask);
-    },
-    deleteTask() {
-      this.removeTask(this.taskId);
+    async delTask(taskId) {
+      await deleteTask(taskId);
       this.$router.push('/');
     },
+    async updTask(taskId, updatedData) {
+      await updateTask(taskId, updatedData);
+      this.$router.push('/');
+    },
+    async getById(taskId) {
+      this.task = await getTaskById(taskId);
+    },
+  },
+  computed: {
+    isTitleEmpty() {
+      return (this.task.title || '').trim() === '';
+    },
+  },
+  async mounted() {
+    await this.getById(this.taskId);
   },
 };
 </script>
@@ -42,14 +35,13 @@ export default {
 <template>
   <div class="edit-task">
     <div class="edit-task__container">
-      <div class="edit-task__header">
+      <div class="edit-task__header" v-if="task">
         <RouterLink class="edit-task__header__link" to="/">
           <img class="edit-task__header__icon" src="../assets/icons/less-than.svg" />
         </RouterLink>
         <div class="edit-task__header__text">Edit task</div>
       </div>
-
-      <div v-if="task" class="edit-task__title">
+      <div class="edit-task__title">
         <input
           type="text"
           v-model="task.title"
@@ -57,21 +49,25 @@ export default {
           placeholder="Update your task title"
         />
       </div>
-      <div v-if="task" class="edit-task__description">
+      <div class="edit-task__description">
         <textarea
           v-model="task.description"
           class="edit-task__description__input"
           placeholder="Update your task description"
         ></textarea>
       </div>
-      <div v-if="task" class="edit-task__date">
+      <div class="edit-task__date">
         <div>{{ task.date }}</div>
       </div>
-      <div v-if="task" class="edit-task__button__container">
-        <button class="edit-task__button update" @click="saveTask" :disabled="isTitleEmpty">
+      <div class="edit-task__button__container">
+        <button
+          class="edit-task__button update"
+          @click="updTask(taskId, task)"
+          :disabled="isTitleEmpty"
+        >
           Update
         </button>
-        <button class="edit-task__button delete" @click="deleteTask">
+        <button class="edit-task__button delete" @click="delTask(taskId)">
           <img class="edit-task__button__img" src="../assets/icons/trash.svg" />
         </button>
       </div>

@@ -1,7 +1,5 @@
 <script>
-import { db } from '@/firebase';
-import { collection, addDoc } from 'firebase/firestore';
-import { mapGetters } from 'vuex';
+import { addNewTask } from '../../firestore';
 
 export default {
   data() {
@@ -20,45 +18,15 @@ export default {
     isTitleEmpty() {
       return this.task.title.trim() === '';
     },
-    ...mapGetters(['allTasks']),
-    tasks() {
-      return this.allTasks;
-    },
   },
   methods: {
-    // ...mapActions(['addTask']),
-    // addNewTask() {
-    //   const newTask = {
-    //     id: Date.now(),
-    //     title: this.task.title,
-    //     description: this.task.description,
-    //     done: false,
-    //     date: this.task.date,
-    //   };
-    //   this.addTask(newTask);
-    //   this.task.title = '';
-    //   this.task.description = '';
-    //   this.task.date = new Date().toISOString().split('T')[0];
-    //   console.log('Task added:', newTask);
-    // },
-
-    async addNewTask() {
-      try {
-        const taskCollectionRef = collection(db, 'tasks');
-        await addDoc(taskCollectionRef, {
-          title: this.task.title,
-          description: this.task.description,
-          done: this.task.done,
-          date: this.task.date,
-        });
-        console.log('Task added:', this.task);
-      } catch (error) {
-        console.error('Error adding task:', error);
-      }
+    async addTask(newTask) {
+      await addNewTask(newTask);
       this.task.title = '';
       this.task.description = '';
       this.task.done = false;
       this.task.date = new Date().toISOString().split('T')[0];
+      this.$router.push('/');
     },
   },
 };
@@ -98,7 +66,7 @@ export default {
         />
       </div>
     </div>
-    <button class="add-task__button" @click="addNewTask" :disabled="isTitleEmpty">
+    <button class="add-task__button" @click="addTask(this.task)" :disabled="isTitleEmpty">
       Finish adding the task
     </button>
   </div>
