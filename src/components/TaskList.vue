@@ -1,11 +1,6 @@
 <script>
 import TaskListItem from './TaskListItem.vue';
-import {
-  getTasks,
-  // changeTaskStatusToDone,
-  // changeTaskStatusToNotDone,
-  changeTaskstatusTo,
-} from '../../firestore';
+import { getTasks, changeTaskstatusTo } from '../firestore';
 
 export default {
   components: {

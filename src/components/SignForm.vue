@@ -1,5 +1,12 @@
 <script>
+import { signIn } from '../auth';
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+    };
+  },
   props: {
     signTitle: {
       type: String,
@@ -14,6 +21,12 @@ export default {
       required: true,
     },
   },
+  methods: {
+    async signInAcc() {
+      await signIn(this.email, this.password);
+      // this.$router.push('/');
+    },
+  },
 };
 </script>
 
@@ -21,10 +34,22 @@ export default {
   <div class="sign-form">
     <div class="sign-form__container">
       <div class="sign-form__title sign-form__title_text">{{ signTitle }}</div>
-      <form class="sign-form__form">
-        <input class="sign-form__input" type="email" placeholder="Email" />
-        <input class="sign-form__input" type="password" placeholder="Password" />
-        <button class="sign-form__button">{{ signButtonTitle }}</button>
+      <form class="sign-form__form" @submit.prevent="signInAcc">
+        <input
+          class="sign-form__input"
+          v-model="email"
+          type="email"
+          placeholder="Email"
+          autocomplete="on"
+        />
+        <input
+          class="sign-form__input"
+          v-model="password"
+          type="password"
+          placeholder="Password"
+          autocomplete="on"
+        />
+        <button class="sign-form__button" type="submit">{{ signButtonTitle }}</button>
       </form>
       <div class="sign-form__other">
         <div v-if="newAcc">

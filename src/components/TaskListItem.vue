@@ -1,6 +1,6 @@
 <script>
 // import { doc } from 'firebase/firestore';
-import { deleteTask } from '../../firestore';
+import { deleteTask } from '../firestore';
 // import { db } from '@/firebase';
 
 export default {

@@ -1,5 +1,5 @@
 <script>
-import { addNewTask } from '../../firestore';
+import { addNewTask } from '../firestore';
 
 export default {
   data() {

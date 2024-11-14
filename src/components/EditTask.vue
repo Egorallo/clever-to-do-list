@@ -1,5 +1,5 @@
 <script>
-import { deleteTask, updateTask, getTaskById } from '../../firestore';
+import { deleteTask, updateTask, getTaskById } from '../firestore';
 export default {
   data() {
     return {

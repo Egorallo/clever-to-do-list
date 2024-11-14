@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <SignForm signTitle="Sign in" signButtonTitle="Sign up" :newAcc="true"></SignForm>
+  <SignForm signTitle="Sign in" signButtonTitle="Sign in" :newAcc="true"></SignForm>
 </template>
 
 <style scoped></style>
