@@ -1,10 +1,11 @@
 <script>
-import { signIn } from '../auth';
+import { signIn, signUp } from '../auth';
 export default {
   data() {
     return {
       email: '',
       password: '',
+      error: null,
     };
   },
   props: {
@@ -23,8 +24,37 @@ export default {
   },
   methods: {
     async signInAcc() {
-      await signIn(this.email, this.password);
-      // this.$router.push('/');
+      try {
+        if (this.$route.path === '/sign-in') {
+          await signIn(this.email, this.password);
+          this.$router.push('/');
+        } else {
+          await signUp(this.email, this.password);
+          this.$router.push('/');
+        }
+      } catch (error) {
+        console.log(error.message);
+        switch (error.message) {
+          case 'auth/user-not-found':
+            this.error = 'User not found';
+            break;
+          case 'auth/email-already-in-use':
+            this.error = 'Email already in use';
+            break;
+          case 'auth/invalid-credential':
+            this.error = 'Invalid credential';
+            break;
+          case 'auth/invalid-email':
+            this.error = 'Invalid email';
+            break;
+          case 'auth/missing-email':
+            this.error = 'Missing email';
+            break;
+          case 'auth/missing-password':
+            this.error = 'Missing password';
+            break;
+        }
+      }
     },
   },
 };
@@ -51,6 +81,9 @@ export default {
         />
         <button class="sign-form__button" type="submit">{{ signButtonTitle }}</button>
       </form>
+      <div v-if="error">
+        <span>{{ error }}</span>
+      </div>
       <div class="sign-form__other">
         <div v-if="newAcc">
           <span>Don't have an account? </span>

@@ -11,8 +11,9 @@ export async function signIn(email, password) {
   try {
     const userCreds = await signInWithEmailAndPassword(auth, email, password);
     console.log('User signed in:', userCreds.user);
+    return userCreds;
   } catch (error) {
-    console.log('Error signing in: ', error);
+    throw new Error(`${error.code}`);
   }
 }
 
@@ -20,8 +21,9 @@ export async function signUp(email, password) {
   try {
     const userCreds = await createUserWithEmailAndPassword(auth, email, password);
     console.log('User signed up:', userCreds.user);
+    return userCreds;
   } catch (error) {
-    console.log('Error signing up: ', error);
+    throw new Error(`${error.code}`);
   }
 }
 
@@ -30,6 +32,6 @@ export async function signOut() {
     await fireSignOut(auth);
     console.log('User signed out');
   } catch (error) {
-    console.log('Error signing out: ', error);
+    throw new Error(`${error.code}`);
   }
 }

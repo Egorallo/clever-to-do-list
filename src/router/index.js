@@ -4,6 +4,7 @@ import SignUpView from '../views/SignUpView.vue';
 import SignInView from '../views/SignInView.vue';
 import AddTask from '@/components/AddTask.vue';
 import EditTask from '@/components/EditTask.vue';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,18 +23,54 @@ const router = createRouter({
       path: '/',
       name: 'main',
       component: MainView,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/add-task',
       name: 'add-task',
       component: AddTask,
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: '/edit-task/:id',
       name: 'edit-task',
       component: EditTask,
+      meta: {
+        requiresAuth: true,
+      },
     },
   ],
+});
+
+const getCurrentUser = async () => {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      getAuth(),
+      (user) => {
+        removeListener();
+        resolve(user);
+      },
+      reject,
+    );
+  });
+};
+
+router.beforeEach(async (to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (await getCurrentUser()) {
+      console.log('User is logged');
+      next();
+    } else {
+      console.log('user is not loggedin');
+      next('/sign-in');
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;
