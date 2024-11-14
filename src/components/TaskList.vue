@@ -1,6 +1,11 @@
 <script>
 import TaskListItem from './TaskListItem.vue';
-import { getTasks } from '../../firestore';
+import {
+  getTasks,
+  // changeTaskStatusToDone,
+  // changeTaskStatusToNotDone,
+  changeTaskstatusTo,
+} from '../../firestore';
 
 export default {
   components: {
@@ -28,6 +33,10 @@ export default {
     removeTaskFromList(taskId) {
       this.tasks = this.tasks.filter((task) => task.id !== taskId);
     },
+    async changeStatus(task, status) {
+      await changeTaskstatusTo(task.id, status);
+      await this.getAllTasks();
+    },
   },
   mounted() {
     this.getAllTasks();
@@ -50,6 +59,7 @@ export default {
           :task="task"
           @click="this.$router.push(`/edit-task/${task.id}`)"
           @delete-task="removeTaskFromList"
+          @change-done-status="changeStatus"
         />
       </transition-group>
     </div>

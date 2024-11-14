@@ -44,3 +44,9 @@ export async function getTasks() {
   const taskList = taskSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return taskList;
 }
+
+export async function changeTaskstatusTo(taskId, status) {
+  const taskDocRef = doc(db, 'tasks', taskId);
+  await updateDoc(taskDocRef, { done: status });
+  console.log('Task status changed');
+}
