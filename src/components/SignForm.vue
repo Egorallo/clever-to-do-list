@@ -6,6 +6,7 @@ export default {
       email: '',
       password: '',
       error: null,
+      signmessage: '',
     };
   },
   props: {
@@ -26,14 +27,19 @@ export default {
     async signInAcc() {
       try {
         if (this.$route.path === '/sign-in') {
+          this.error = null;
+          this.signmessage = 'Signing you in...';
           await signIn(this.email, this.password);
           this.$router.push('/');
         } else {
+          this.error = null;
+          this.signmessage = 'Creating your account...';
           await signUp(this.email, this.password);
           this.$router.push('/');
         }
       } catch (error) {
         console.log(error.message);
+        this.signmessage = '';
         switch (error.message) {
           case 'auth/user-not-found':
             this.error = 'User not found';
@@ -42,7 +48,7 @@ export default {
             this.error = 'Email already in use';
             break;
           case 'auth/invalid-credential':
-            this.error = 'Invalid credential';
+            this.error = 'Email or password is incorrect';
             break;
           case 'auth/invalid-email':
             this.error = 'Invalid email';
@@ -54,7 +60,7 @@ export default {
             this.error = 'Missing password';
             break;
           case 'auth/weak-password':
-            this.error = 'Weak password';
+            this.error = 'Weak password (Minumum 6 characters)';
             break;
         }
       }
@@ -86,6 +92,9 @@ export default {
       </form>
       <div class="error" v-if="error">
         <span>{{ error }}</span>
+      </div>
+      <div class="sign-message" v-if="signmessage">
+        <span>{{ signmessage }}</span>
       </div>
       <div class="sign-form__other">
         <div v-if="newAcc">
@@ -160,6 +169,11 @@ export default {
 
 .error {
   color: red;
+  font-size: 17px;
+}
+
+.sign-message {
+  color: green;
   font-size: 17px;
 }
 </style>
