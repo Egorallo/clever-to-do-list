@@ -1,12 +1,21 @@
 <script>
 import { deleteTask, updateTask, getTaskById } from '../firestore';
+import LoadingContent from './LoadingContent.vue';
 export default {
+  components: {
+    LoadingContent,
+  },
   data() {
     return {
       taskId: this.$route.params.id,
       task: { title: '', description: '', date: '' },
       todaysDate: new Date().toISOString().split('T')[0],
       maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
+      layout2: [
+        { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 20 },
+        { type: 'rect', x: 0, y: 56, rx: 10, ry: 10, width: 345, height: 460 },
+      ],
+      loaderViewBox: '0 0 345 515',
     };
   },
 
@@ -43,7 +52,8 @@ export default {
         </RouterLink>
         <div class="edit-task__header__text">Edit task</div>
       </div>
-      <div class="edit-task__title">
+
+      <div v-if="task.date" class="edit-task__title">
         <input
           type="text"
           v-model="task.title"
@@ -51,14 +61,14 @@ export default {
           placeholder="Update your task title"
         />
       </div>
-      <div class="edit-task__description">
+      <div v-if="task.date" class="edit-task__description">
         <textarea
           v-model.trim="task.description"
           class="edit-task__description__input"
           placeholder="Update your task description"
         ></textarea>
       </div>
-      <div class="edit-task__date">
+      <div v-if="task.date" class="edit-task__date">
         <input
           class="edit-task__date__input"
           type="date"
@@ -67,6 +77,9 @@ export default {
           :max="maxDate"
         />
       </div>
+
+      <LoadingContent v-else :layout="layout2" :view-box="loaderViewBox"></LoadingContent>
+
       <div class="edit-task__button__container">
         <button
           class="edit-task__button update"

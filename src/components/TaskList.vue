@@ -1,16 +1,28 @@
 <script>
 import TaskListItem from './TaskListItem.vue';
 import { getTasks, changeTaskstatusTo } from '../firestore';
+import LoadingContent from './LoadingContent.vue';
 
 export default {
   components: {
     TaskListItem,
+    LoadingContent,
   },
   data() {
     return {
       hoveredOn: null,
       tasks: [],
       loading: true,
+      layout1: [
+        { type: 'circle', cx: 12, cy: 20, r: 12 },
+        { type: 'rect', x: 35, y: 0, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 76, r: 12 },
+        { type: 'rect', x: 35, y: 56, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 132, r: 12 },
+        { type: 'rect', x: 35, y: 112, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 188, r: 12 },
+        { type: 'rect', x: 35, y: 168, rx: 15, ry: 15, width: 310, height: 40 },
+      ],
     };
   },
   methods: {
@@ -56,9 +68,11 @@ export default {
           @delete-task="removeTaskFromList"
           @change-done-status="changeStatus"
         />
+        <button class="task-list__button" @click="goToAddTask">+ Add a new task</button>
       </transition-group>
+
+      <LoadingContent :layout="layout1" v-else />
     </div>
-    <button class="task-list__button" @click="goToAddTask">+ Add a new task</button>
   </div>
 </template>
 
