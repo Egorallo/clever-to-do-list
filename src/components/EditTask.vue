@@ -185,7 +185,7 @@ export default {
 }
 
 .edit-task__description {
-  height: 53vh;
+  height: 50vh;
 }
 
 .edit-task__description__input {

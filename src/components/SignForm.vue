@@ -53,6 +53,9 @@ export default {
           case 'auth/missing-password':
             this.error = 'Missing password';
             break;
+          case 'auth/weak-password':
+            this.error = 'Weak password';
+            break;
         }
       }
     },
@@ -81,7 +84,7 @@ export default {
         />
         <button class="sign-form__button" type="submit">{{ signButtonTitle }}</button>
       </form>
-      <div v-if="error">
+      <div class="error" v-if="error">
         <span>{{ error }}</span>
       </div>
       <div class="sign-form__other">
@@ -153,5 +156,10 @@ export default {
   color: #ff7300;
   cursor: pointer;
   text-decoration: none;
+}
+
+.error {
+  color: red;
+  font-size: 17px;
 }
 </style>

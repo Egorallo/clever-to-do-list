@@ -1,19 +1,17 @@
 <script>
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
-import { signOut } from './auth';
+import NavTop from './components/NavTop.vue';
 export default {
+  components: {
+    NavTop,
+  },
   data() {
     return {
       isLogged: false,
     };
   },
-  methods: {
-    async handleSignOut() {
-      await signOut();
-      this.$router.push('/sign-in');
-    },
-  },
+
   mounted() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -27,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <button @click="handleSignOut" v-if="isLogged">Sign out</button>
+  <NavTop v-if="isLogged"></NavTop>
   <RouterView />
 </template>
 

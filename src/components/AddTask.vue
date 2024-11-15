@@ -125,7 +125,7 @@ export default {
 
 .add-task__description {
   max-height: 500px;
-  height: 53vh;
+  height: 50vh;
 }
 
 .add-task__description__input {

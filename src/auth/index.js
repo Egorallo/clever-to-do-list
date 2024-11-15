@@ -3,8 +3,22 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as fireSignOut,
+  onAuthStateChanged,
 } from 'firebase/auth';
 // import { AuthErrorCodes } from 'firebase/auth';
+
+export const getCurrentUser = async () => {
+  return new Promise((resolve, reject) => {
+    const removeListener = onAuthStateChanged(
+      auth,
+      (user) => {
+        removeListener();
+        resolve(user);
+      },
+      reject,
+    );
+  });
+};
 
 export async function signIn(email, password) {
   console.log('aboba');

@@ -4,7 +4,7 @@ import SignUpView from '../views/SignUpView.vue';
 import SignInView from '../views/SignInView.vue';
 import AddTask from '@/components/AddTask.vue';
 import EditTask from '@/components/EditTask.vue';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getCurrentUser } from '@/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,19 +45,6 @@ const router = createRouter({
     },
   ],
 });
-
-const getCurrentUser = async () => {
-  return new Promise((resolve, reject) => {
-    const removeListener = onAuthStateChanged(
-      getAuth(),
-      (user) => {
-        removeListener();
-        resolve(user);
-      },
-      reject,
-    );
-  });
-};
 
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
