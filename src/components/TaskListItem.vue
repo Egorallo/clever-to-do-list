@@ -131,7 +131,7 @@ export default {
   margin: 0;
   line-height: 0;
   position: absolute;
-  right: 0px;
+  right: 0;
 }
 
 .task-list-item__delete__button__img {

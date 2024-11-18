@@ -216,4 +216,30 @@ export default {
 .edit-task__title__input:focus {
   outline: none;
 }
+
+.edit-task__date__input {
+  position: relative;
+  border-radius: 9px;
+  border: 1px solid #e6e6e6;
+  opacity: 0.5;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.edit-task__date__input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+}
+
+.edit-task__date__input:focus {
+  border-color: #ff8c00;
+  outline: none;
+}
 </style>
