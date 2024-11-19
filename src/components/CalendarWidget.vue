@@ -117,6 +117,10 @@ export default {
   transition: all 0.3s ease;
 }
 
+.calendar__container__item:not(.active):hover {
+  background-color: #f4f4f4;
+}
+
 .calendar__container__item + .calendar__dots {
   display: flex;
   justify-content: center;

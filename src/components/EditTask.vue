@@ -31,6 +31,9 @@ export default {
     async getById(taskId) {
       this.task = await getTaskById(taskId);
     },
+    changeDoneStatus() {
+      this.$emit('change-done-status', this.task, !this.task.done);
+    },
   },
   computed: {
     isTitleEmpty() {
@@ -81,15 +84,24 @@ export default {
       <LoadingContent v-else :layout="layout2" :view-box="loaderViewBox"></LoadingContent>
 
       <div class="edit-task__button__container">
+        <input
+          type="checkbox"
+          :checked="task.done"
+          @click.stop="task.done = !task.done"
+          class="edit-task__checkbox"
+          :id="task.id"
+        />
+
+        <label :for="task.id" @click.stop class="edit-task__circle"></label>
+        <button class="edit-task__button delete" @click="delTask(taskId)">
+          <img class="edit-task__button__img" src="../assets/icons/trash.svg" />
+        </button>
         <button
           class="edit-task__button update"
           @click="updTask(taskId, task)"
           :disabled="isTitleEmpty"
         >
-          Update
-        </button>
-        <button class="edit-task__button delete" @click="delTask(taskId)">
-          <img class="edit-task__button__img" src="../assets/icons/trash.svg" />
+          Complete &#x2713;
         </button>
       </div>
     </div>
@@ -97,12 +109,54 @@ export default {
 </template>
 
 <style scoped>
+.edit-task__checkbox {
+  display: none;
+}
+
+.edit-task__circle {
+  user-select: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid orange;
+  display: inline-flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.edit-task__circle::after {
+  content: '';
+  display: none;
+  width: 12px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5L10 17L20 7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.edit-task__checkbox:checked + .edit-task__circle {
+  background-color: orange;
+  border-color: orange;
+}
+
+.edit-task__checkbox:checked + .edit-task__circle::after {
+  display: block;
+}
+
 .edit-task__button__container {
   display: flex;
   width: 100%;
   max-width: 400px;
-  gap: 15px;
+  gap: 1vw;
   justify-content: flex-end;
+  align-items: center;
   border-top: 1px solid #d4d4d4;
   padding-top: 10px;
 }
@@ -112,23 +166,28 @@ export default {
   width: 100%;
   padding: 17px;
   border: none;
-  border-radius: 15px;
+  border-radius: 12px;
   color: #fff;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .edit-task__button.update {
-  max-width: 150px;
-  background-color: #ff7300;
+  max-width: 130px;
+  height: 50px;
+  background-color: #e4f8ee;
+  color: #438f69;
+  font-weight: bold;
+  padding: 10px 10px 10px 10px;
 }
 
 .edit-task__button.delete {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 100px;
-  background-color: #ff0000;
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
 }
 
 .edit-task__button__img {
@@ -137,11 +196,7 @@ export default {
 }
 
 .edit-task__button.update:hover {
-  background-color: #ff9c4d;
-}
-
-.edit-task__button.delete:hover {
-  background-color: #ff4d4d;
+  background-color: #b3e6d1;
 }
 
 .edit-task__button.update:disabled {
