@@ -23,9 +23,26 @@ export default {
 
 <template>
   <div class="navtop">
-    <div v-if="this.$route.path === '/'" class="navtop__welcome">Welcome, {{ userEmail }}</div>
+    <div v-if="this.$route.path === '/'" class="navtop__welcome">
+      Logged in as:&nbsp;
+      <span class="navtop__welcome__email">
+        {{ userEmail }}
+      </span>
+    </div>
     <div v-else>Today is {{ today }}</div>
-    <button class="navtop__button__signout" @click="handleSignOut">Sign out</button>
+    <div class="navtop__right">
+      <div class="notification">
+        <img src="../assets/icons/notification-bell.svg" />
+        <div class="notification-badge">3</div>
+      </div>
+      <button class="navtop__button__signout" @click="handleSignOut">
+        <img
+          class="navtop__button__signout__icon"
+          src="../assets/icons/signout.svg"
+          alt="Sign out"
+        />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -37,18 +54,58 @@ export default {
   gap: 5px;
 }
 
+.navtop__welcome {
+  /* display: flex; */
+}
+.navtop__welcome__email {
+  font-weight: bold;
+}
+
+.notification {
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 1);
+  color: rgba(255, 255, 255, 1);
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+  padding-top: 0px;
+  width: 16px;
+  height: 16px;
+  border-radius: 10px;
+  border: 1px solid white;
+  top: -6px;
+  right: -4px;
+}
+
+.navtop__right {
+  display: flex;
+  gap: 3vw;
+  align-items: center;
+}
+
 .navtop__button__signout {
-  width: 30%;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-width: 50px;
+  max-width: 30%; */
+  /* padding: 10px; */
   border: none;
   border-radius: 15px;
-  background-color: #d32f2f;
-  color: #fff;
+  /* background-color: #fd2b2b; */
+  background-color: transparent;
+  /* color: #fff; */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.navtop__button__signout:hover {
-  background-color: #ff4d4d;
+.navtop__button__signout__icon {
+  width: 20px;
+  height: 20px;
 }
 </style>

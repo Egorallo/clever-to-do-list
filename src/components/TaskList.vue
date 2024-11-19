@@ -82,6 +82,10 @@ export default {
     formattedDate() {
       return new Date(this.selectedDate).toDateString().split(' ').slice(1).join(' ');
     },
+    amountOfTasksToday() {
+      const word = this.filteredTasks.length === 1 ? 'Task' : 'Tasks';
+      return `${this.filteredTasks.length} ${word} on ${this.formattedDate}`;
+    },
   },
 };
 </script>
@@ -94,7 +98,7 @@ export default {
     <div class="task-list__container">
       <CalendarWidget :tasks="tasks" @changed-date="changeDate"></CalendarWidget>
       <div class="task-list__container__quantity">
-        {{ filteredTasks.length }} Tasks on {{ formattedDate }}
+        {{ amountOfTasksToday }}
       </div>
       <transition-group v-if="!loading" name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem

@@ -68,7 +68,14 @@ export default {
   <div class="calendar">
     <div class="calendar__container">
       <div v-for="(day, index) in daysToRender" :key="index">
-        <div class="calendar__container__item" @click="changeDate(day.dateForFilter)">
+        <div
+          class="calendar__container__item"
+          :class="{
+            active: selectedDate === day.dateForFilter,
+            sunday: day.dayName === 'Sun' && selectedDate !== day.dateForFilter,
+          }"
+          @click="changeDate(day.dateForFilter)"
+        >
           <div class="calendar__container__item__day">{{ day.dayName }}</div>
           <div class="calendar__container__item__date">{{ day.date }}</div>
         </div>
@@ -107,6 +114,7 @@ export default {
   width: 100%;
   height: 55px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .calendar__container__item + .calendar__dots {
@@ -137,5 +145,15 @@ export default {
 
 .calendar__container__item__date {
   font-weight: bold;
+}
+
+.active {
+  background-color: #212020;
+  color: white;
+}
+
+.sunday {
+  border-color: rgb(255, 145, 0);
+  color: rgb(255, 145, 0);
 }
 </style>
