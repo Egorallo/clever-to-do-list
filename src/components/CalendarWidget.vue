@@ -1,8 +1,15 @@
 <script>
+import TriggerLoad from './TriggerLoad.vue';
 export default {
+  components: {
+    TriggerLoad,
+  },
   data() {
     return {
       selectedDate: new Date().toISOString().split('T')[0],
+      currentDate: new Date(),
+      additionalDays: 0,
+      loadMore: false,
     };
   },
   props: {
@@ -12,15 +19,7 @@ export default {
       default: () => [],
     },
   },
-  watch: {
-    selectedDate: {
-      handler() {
-        console.log(this.selectedDate);
-        this.$emit('changed-date', this.selectedDate);
-      },
-      immediate: true,
-    },
-  },
+
   methods: {
     changeDate(newDate) {
       this.selectedDate = newDate;
@@ -42,15 +41,20 @@ export default {
       });
       return obj;
     },
+    loadMoreDays() {
+      this.loadMore = true;
+      this.additionalDays += 30;
+    },
   },
   computed: {
     daysToRender() {
-      const now = new Date();
-      const curDay = now.getDate();
-      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      const now = this.currentDate;
+      const totalDaysToRender = 30 + this.additionalDays;
+
       const days = [];
-      for (let j = curDay; j <= daysInMonth; j++) {
-        const date = new Date(now.getFullYear(), now.getMonth(), j);
+      for (let i = 0; i < totalDaysToRender; i++) {
+        const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
+
         days.push({
           date: date.getDate(),
           dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
@@ -84,6 +88,7 @@ export default {
           <div v-if="day.doneNotIndicators.done" class="calendar__dot done"></div>
         </div>
       </div>
+      <TriggerLoad @intersected="loadMoreDays" />
     </div>
   </div>
 </template>

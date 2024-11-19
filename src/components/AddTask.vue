@@ -11,7 +11,9 @@ export default {
         date: new Date().toISOString().split('T')[0],
       },
       todaysDate: new Date().toISOString().split('T')[0],
-      maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
+      maxDate: new Date(new Date().setMonth(new Date().getFullYear() + 1))
+        .toISOString()
+        .split('T')[0],
     };
   },
   computed: {

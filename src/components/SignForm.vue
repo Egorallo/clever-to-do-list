@@ -74,19 +74,13 @@ export default {
     <div class="sign-form__container">
       <div class="sign-form__title sign-form__title_text">{{ signTitle }}</div>
       <form class="sign-form__form" @submit.prevent="signInAcc">
-        <input
-          class="sign-form__input"
-          v-model="email"
-          type="email"
-          placeholder="Email"
-          autocomplete="on"
-        />
+        <input class="sign-form__input" v-model="email" placeholder="Email" autocomplete="email" />
         <input
           class="sign-form__input"
           v-model="password"
           type="password"
           placeholder="Password"
-          autocomplete="on"
+          autocomplete="password"
         />
         <button class="sign-form__button" type="submit">{{ signButtonTitle }}</button>
       </form>
