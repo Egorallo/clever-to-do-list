@@ -1,5 +1,5 @@
 <script>
-import { addNewTask } from '../firestore';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -22,8 +22,9 @@ export default {
     },
   },
   methods: {
-    async addTask(newTask) {
-      await addNewTask(newTask);
+    ...mapActions(['addTask']),
+    addNewTask(newTask) {
+      this.addTask(newTask);
       this.task.title = '';
       this.task.description = '';
       this.task.done = false;
@@ -68,7 +69,7 @@ export default {
         />
       </div>
       <div class="add-task__button__wrapper">
-        <button class="add-task__button" @click="addTask(this.task)" :disabled="isTitleEmpty">
+        <button class="add-task__button" @click="addNewTask(this.task)" :disabled="isTitleEmpty">
           Finish adding the task
         </button>
       </div>

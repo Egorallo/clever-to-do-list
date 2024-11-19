@@ -1,6 +1,6 @@
 <script>
 // import { doc } from 'firebase/firestore';
-import { deleteTask } from '../firestore';
+import { mapActions } from 'vuex';
 // import { db } from '@/firebase';
 
 export default {
@@ -16,10 +16,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['deleteTask']),
     async delTask(taskId) {
-      await deleteTask(taskId);
+      await this.deleteTask(taskId);
       console.log('Task deleted');
-      this.$emit('delete-task', taskId);
       this.$router.push('/');
     },
 

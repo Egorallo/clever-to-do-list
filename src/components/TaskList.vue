@@ -1,8 +1,8 @@
 <script>
 import TaskListItem from './TaskListItem.vue';
-import { getTasks, changeTaskstatusTo } from '../firestore';
 import LoadingContent from './LoadingContent.vue';
 import CalendarWidget from './CalendarWidget.vue';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   components: {
     TaskListItem,
@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       hoveredOn: null,
-      tasks: [],
+      // tasks: [],
       loading: true,
       layout1: [
         { type: 'circle', cx: 12, cy: 20, r: 12 },
@@ -28,23 +28,18 @@ export default {
     };
   },
   methods: {
+    ...mapActions(['fetchTasks', 'updateTask']),
+    ...mapGetters(['tasksFromStore']),
     goToAddTask() {
       this.$router.push('/add-task');
-    },
-    async getAllTasks() {
-      this.loading = true;
-      this.tasks = await getTasks();
-      this.loading = false;
     },
     goToEditTask(taskId) {
       this.$router.push(`/edit-task/${taskId}`);
     },
-    removeTaskFromList(taskId) {
-      this.tasks = this.tasks.filter((task) => task.id !== taskId);
-    },
     async changeStatus(task, status) {
-      await changeTaskstatusTo(task.id, status);
-      // await this.getAllTasks();
+      console.log('from task list ', task, status);
+      await this.updateTask({ taskId: task.id, updatedData: { done: status } });
+
       this.tasks = this.tasks.map((n) => {
         if (n.id === task.id) {
           n.done = status;
@@ -57,21 +52,18 @@ export default {
       console.log('from task list ', this.selectedDate);
     },
   },
-  async mounted() {
-    await this.getAllTasks();
-    console.log('Tasks in parent component:', this.tasks);
+  async created() {
+    this.loading = true;
+    console.log('created from tasklist');
+    await this.fetchTasks();
+    this.loading = false;
   },
 
-  // watch: {
-  //   loading() {
-  //     console.log('loaded');
-  //     this.filteredTasks = this.tasks.filter((task) => task.date === this.selectedDate);
-  //     console.log(this.tasks);
-  //     console.log(this.filteredTasks);
-  //   },
-  // },
-
   computed: {
+    tasks() {
+      return this.tasksFromStore();
+    },
+
     filteredTasks() {
       if (!this.loading) {
         console.log(new Date(this.selectedDate).toDateString());
@@ -106,7 +98,6 @@ export default {
           :key="task.id"
           :task="task"
           @click="this.$router.push(`/edit-task/${task.id}`)"
-          @delete-task="removeTaskFromList"
           @change-done-status="changeStatus"
         />
         <button class="task-list__button" key="0" @click="goToAddTask">+ Add a new task</button>

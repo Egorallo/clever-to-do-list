@@ -1,67 +1,80 @@
 import { createStore } from 'vuex';
+import { addNewTask, getTasks, deleteTask, updateTask } from '@/firestore';
+import { getCurrentUser } from '@/auth';
 
 const store = createStore({
   state: {
-    tasks: [
-      {
-        id: 0,
-        title: 'New design for mobile UI',
-        description: 'Description 1',
-        done: false,
-        date: '2021-09-01',
-      },
-      {
-        id: 1,
-        title: 'Wash nuggets in place',
-        description: 'Description 2',
-        done: false,
-        date: '2021-09-02',
-      },
-      {
-        id: 2,
-        title: 'Near the death experience',
-        description: 'Description 3',
-        done: true,
-        date: '2021-09-03',
-      },
-      {
-        id: 3,
-        title: 'Wash nuggets in place',
-        description: 'Description 2',
-        done: false,
-        date: '2021-09-02',
-      },
-    ],
+    tasks: [],
+    userId: null,
   },
   mutations: {
-    addTask(state, task) {
-      state.tasks.push(task);
+    setTasks(state, tasks) {
+      state.tasks = tasks;
+    },
+    setUserId(state, userId) {
+      state.userId = userId;
     },
     removeTask(state, taskId) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
-    updateTask(state, task) {
-      const index = state.tasks.findIndex((t) => t.id === task.id);
-      state.tasks[index] = task;
-    },
   },
   actions: {
-    addTask({ commit }, task) {
-      commit('addTask', task);
+    async initializeUser({ commit }) {
+      const user = await getCurrentUser();
+      if (user) {
+        commit('setUserId', user.uid);
+      } else {
+        console.error('No user logged in');
+      }
     },
-    removeTask({ commit }, taskId) {
+    async fetchTasks({ commit, state }) {
+      if (!state.userId) {
+        console.error('User not logged in');
+        return;
+      }
+      const tasks = await getTasks(state.userId);
+      commit('setTasks', tasks);
+    },
+    async addTask({ dispatch, state }, task) {
+      if (!state.userId) {
+        console.error('User not logged in');
+        return;
+      }
+      await addNewTask(state.userId, task);
+      dispatch('fetchTasks');
+    },
+    async deleteTask({ commit, state }, taskId) {
+      if (!state.userId) {
+        console.error('User not logged in');
+        return;
+      }
       commit('removeTask', taskId);
+
+      try {
+        await deleteTask(state.userId, taskId);
+        console.log('Task deleted from Firestore');
+      } catch (error) {
+        console.error('Error deleting task from Firestore:', error);
+        const tasks = await getTasks(state.userId);
+        commit('setTasks', tasks);
+      }
     },
-    updateTask({ commit }, task) {
-      commit('updateTask', task);
+    async updateTask({ dispatch, state }, { taskId, updatedData }) {
+      if (!state.userId) {
+        console.error('User not logged in');
+        return;
+      }
+      console.log('data', updatedData);
+      await updateTask(state.userId, taskId, updatedData);
+      dispatch('fetchTasks');
     },
   },
   getters: {
-    allTasks(state) {
+    tasksFromStore(state) {
       return state.tasks;
     },
-    getTaskById(state) {
-      return (taskId) => state.tasks.find((task) => task.id === taskId);
+    user(state) {
+      return state.userId;
     },
   },
 });

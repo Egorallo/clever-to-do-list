@@ -2,6 +2,7 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
 import NavTop from './components/NavTop.vue';
+import { mapActions } from 'vuex';
 export default {
   components: {
     NavTop,
@@ -11,10 +12,14 @@ export default {
       isLogged: false,
     };
   },
+  methods: {
+    ...mapActions(['initializeUser']),
+  },
 
   mounted() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
+        this.initializeUser();
         this.isLogged = true;
       } else {
         this.isLogged = false;
