@@ -10,7 +10,6 @@ export async function addNewTask(userId, newTask) {
       done: newTask.done,
       date: newTask.date,
     });
-    console.log('Task added:', newTask);
   } catch (error) {
     console.error('Error adding task:', error);
   }
@@ -19,17 +18,14 @@ export async function addNewTask(userId, newTask) {
 export async function deleteTask(userId, taskId) {
   const taskDocRef = doc(db, `users/${userId}/tasks`, taskId);
   await deleteDoc(taskDocRef);
-  console.log('Task deleted');
 }
 
 export async function updateTask(userId, taskId, updatedData) {
   try {
-    console.log(userId, taskId, updatedData);
     const taskDocRef = doc(db, `users/${userId}/tasks`, taskId);
     await updateDoc(taskDocRef, updatedData);
-    console.log('Task updated');
   } catch (error) {
-    console.log('Error updating task:', error);
+    console.error('Error updating task:', error);
   }
 }
 
@@ -53,5 +49,4 @@ export async function getTasks(userId) {
 export async function changeTaskstatusTo(userId, taskId, status) {
   const taskDocRef = doc(db, `users/${userId}/tasks`, taskId);
   await updateDoc(taskDocRef, { done: status });
-  console.log('Task status changed');
 }

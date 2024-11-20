@@ -74,7 +74,7 @@ export default {
   font-size: 12px;
   line-height: 15px;
   text-align: center;
-  padding-top: 0px;
+  padding-top: 0;
   width: 16px;
   height: 16px;
   border-radius: 10px;
@@ -90,11 +90,7 @@ export default {
 }
 
 .navtop__button__signout {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border: none;
-  border-radius: 15px;
   background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s ease;

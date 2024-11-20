@@ -17,7 +17,6 @@ export default {
     ...mapActions(['deleteTask']),
     async delTask(taskId) {
       await this.deleteTask(taskId);
-      console.log('Task deleted');
       this.$router.push('/');
     },
 

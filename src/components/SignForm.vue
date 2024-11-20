@@ -38,7 +38,6 @@ export default {
           this.$router.push('/');
         }
       } catch (error) {
-        console.log(error.message);
         this.signmessage = '';
         switch (error.message) {
           case 'auth/user-not-found':

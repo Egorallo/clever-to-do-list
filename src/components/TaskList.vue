@@ -60,16 +60,13 @@ export default {
       });
     },
     async changeStatus(task, status) {
-      console.log('from task list ', task, status);
       await this.updateTask({ taskId: task.id, updatedData: { done: status } });
     },
     changeDate(newDate) {
       this.selectedDate = newDate;
-      console.log('from task list ', this.selectedDate);
     },
     filteredTasks() {
       if (!this.loading) {
-        console.log('from filteredTasks()');
         return this.tasks.filter((task) => task.date === this.selectedDate);
       }
       return [];
@@ -77,15 +74,12 @@ export default {
   },
   async created() {
     this.loading = true;
-    console.log('created from tasklist');
     await this.fetchTasks();
-
     this.loading = false;
   },
 
   computed: {
     tasks() {
-      console.log('tasks() ', this.tasksFromStore());
       return this.tasksFromStore();
     },
     formattedDate() {
@@ -97,11 +91,7 @@ export default {
     },
     uncompletedTasks() {
       const tasks = this.filteredTasks();
-      const shma = tasks.some((task) => {
-        return !task.done;
-      });
-      console.log('shma ', shma);
-      return shma;
+      return tasks.some((task) => !task.done);
     },
   },
 };

@@ -7,7 +7,6 @@ export default {
   data() {
     return {
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
-      currentDate: new Date(),
       additionalDays: 0,
       loadMore: false,
     };
@@ -48,7 +47,7 @@ export default {
   },
   computed: {
     daysToRender() {
-      const now = this.currentDate;
+      const now = new Date();
       const totalDaysToRender = 30 + this.additionalDays;
 
       const days = [];
@@ -100,7 +99,7 @@ export default {
   overflow: auto;
   gap: 25px;
   padding: 0;
-  max-width: 420px;
+  width: 100%;
 }
 
 .calendar__container::-webkit-scrollbar {

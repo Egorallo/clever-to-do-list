@@ -38,12 +38,9 @@ export default {
     charsRemaining() {
       this.$nextTick(() => {
         if (this.$refs.inputField) {
-          console.log(this.$refs.inputField.value.length);
           this.charsLeftInput = this.$refs.inputField.value.length;
         }
         if (this.$refs.textareaField) {
-          console.log(this.$refs.textareaField.value.length);
-
           this.charsLeftTextarea = this.$refs.textareaField.value.length;
         }
       });

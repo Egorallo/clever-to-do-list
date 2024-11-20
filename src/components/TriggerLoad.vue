@@ -19,14 +19,12 @@ export default {
   mounted() {
     this.observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        console.log('AHUHAHUAHUAH');
         this.$emit('intersected');
       }
     });
     this.observer.observe(this.$refs.trigger);
   },
   unmounted() {
-    console.log('unmounted');
     this.observer.disconnect();
   },
 };

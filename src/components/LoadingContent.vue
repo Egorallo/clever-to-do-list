@@ -27,8 +27,6 @@ export default {
     this.secColor = getComputedStyle(document.documentElement).getPropertyValue(
       '--loader-secondary-color',
     );
-
-    console.log(this.primaryColor, this.secondaryColor);
   },
 };
 </script>
@@ -41,15 +39,8 @@ export default {
     :secondaryColor="secColor"
   >
     <template v-for="(shape, index) in layout" :key="index">
-      <circle
-        class="shape"
-        v-if="shape.type === 'circle'"
-        :cx="shape.cx"
-        :cy="shape.cy"
-        :r="shape.r"
-      />
+      <circle v-if="shape.type === 'circle'" :cx="shape.cx" :cy="shape.cy" :r="shape.r" />
       <rect
-        class="shape"
         v-else-if="shape.type === 'rect'"
         :x="shape.x"
         :y="shape.y"
@@ -62,9 +53,4 @@ export default {
   </ContentLoader>
 </template>
 
-<style scoped>
-.aboba .shape {
-  background-color: pink;
-  color: pink;
-}
-</style>
+<style scoped></style>
