@@ -180,18 +180,19 @@ export default {
   padding: 17px;
   border: none;
   border-radius: 12px;
-  color: #fff;
+  color: var(--button-text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .edit-task__button.update {
   max-width: 130px;
   height: 50px;
-  background-color: #e4f8ee;
+  background-color: var(--button-update-color);
   color: #438f69;
   font-weight: bold;
   padding: 10px 10px 10px 10px;
+  transition: all 0.4s ease;
 }
 
 .edit-task__button.delete {
@@ -209,11 +210,11 @@ export default {
 }
 
 .edit-task__button.update:hover {
-  background-color: #b3e6d1;
+  background-color: var(--button-update-color-hover);
 }
 
 .edit-task__button.update:disabled {
-  background-color: #ccc;
+  background-color: var(--button-disabled-color);
   cursor: not-allowed;
 }
 
@@ -228,6 +229,8 @@ export default {
   align-items: center;
   justify-content: flex-start;
   padding-left: 3px;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .edit-task__header__link {
@@ -263,6 +266,9 @@ export default {
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
+  background-color: transparent;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .edit-task__description {
@@ -271,13 +277,15 @@ export default {
 
 .edit-task__description__input {
   font-family: 'Mulish', serif;
-  color: #646363;
+  color: var(--text-secondary-color);
   width: 100%;
   height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
   resize: none;
+  background-color: transparent;
+  transition: all 0.4s ease;
 }
 
 .edit-task__description__input:focus,
@@ -291,7 +299,6 @@ export default {
   border: 1px solid #e6e6e6;
   opacity: 0.5;
   padding: 7px;
-  cursor: pointer;
 }
 
 .edit-task__date__input::-webkit-calendar-picker-indicator {
@@ -304,10 +311,6 @@ export default {
   height: auto;
   color: transparent;
   background: transparent;
-}
-
-.edit-task__date__input:focus {
-  border-color: #ff8c00;
-  outline: none;
+  cursor: pointer;
 }
 </style>

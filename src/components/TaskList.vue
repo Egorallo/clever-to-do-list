@@ -50,13 +50,10 @@ export default {
       this.$router.push(`/edit-task/${taskId}`);
     },
     moveUncompleted() {
-      console.log('asdasdasdafd');
       const tasks = this.filteredTasks();
-      console.log('mmmmmm', tasks[0]);
       const uncompleted = tasks.filter((task) => {
         return task.done === false;
       });
-      console.log('from moveUncompleted()', uncompleted);
       uncompleted.forEach(async (task) => {
         const newDate = this.addOneDay(task.date);
         await this.updateTask({
@@ -157,6 +154,11 @@ export default {
   justify-content: space-between;
 }
 
+.task-list__header {
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
+}
+
 .task-list__header__text {
   font-size: 24px;
   font-weight: bold;
@@ -171,6 +173,8 @@ export default {
 .task-list__container__quantity {
   font-size: 20px;
   font-weight: bold;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .task-list__button {
@@ -181,14 +185,14 @@ export default {
   padding: 17px;
   border: none;
   border-radius: 15px;
-  background-color: #ff7300;
-  color: #fff;
+  background-color: var(--button-main-color);
+  color: var(--button-text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.4s ease;
 }
 
 .task-list__button:hover {
-  background-color: #ff9c4d;
+  background-color: var(--button-main-color-hover);
 }
 
 .task-list__button.uncopmleted {
@@ -196,20 +200,22 @@ export default {
   margin-right: auto;
   margin: 10px auto 0 auto;
   width: 70%;
-  background-color: #9f7af6;
+  background-color: var(--button-uncompleted-color);
 }
 
 .task-list__button.uncopmleted:hover {
-  background-color: #b3a1e6;
+  background-color: var(--button-uncompleted-color-hover);
 }
 
 .task-list__button.uncopmleted:disabled {
-  background-color: #ccc;
+  background-color: var(--button-disabled-color);
   cursor: not-allowed;
 }
 
 .smol-text {
   margin: auto;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .task-list__container__tasks {

@@ -84,6 +84,7 @@ export default {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
+  /* background-color: var(--bg-color); */
 }
 
 .add-task__header {
@@ -91,6 +92,8 @@ export default {
   align-items: center;
   justify-content: flex-start;
   padding-left: 3px;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .add-task__header__link {
@@ -126,6 +129,9 @@ export default {
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
+  background-color: transparent;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .add-task__description {
@@ -135,13 +141,15 @@ export default {
 
 .add-task__description__input {
   font-family: 'Mulish', serif;
-  color: #646363;
+  color: var(--text-secondary-color);
   width: 100%;
   height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
   resize: none;
+  background-color: transparent;
+  transition: all 0.4s ease;
 }
 
 .add-task__description__input:focus,
@@ -159,18 +167,17 @@ export default {
   padding: 17px;
   border: none;
   border-radius: 15px;
-  background-color: #ff7300;
-  color: #fff;
+  background-color: var(--button-main-color);
+  color: var(--button-text-color);
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .add-task__button:hover {
-  background-color: #ff9c4d;
+  background-color: var(--button-main-color-hover);
 }
 
 .add-task__button:disabled {
-  background-color: #ccc;
+  background-color: var(--button-disabled-color);
   cursor: not-allowed;
 }
 
@@ -180,7 +187,6 @@ export default {
   border: 1px solid #e6e6e6;
   opacity: 0.5;
   padding: 7px;
-  cursor: pointer;
 }
 
 .add-task__date__input::-webkit-calendar-picker-indicator {
@@ -193,10 +199,6 @@ export default {
   height: auto;
   color: transparent;
   background: transparent;
-}
-
-.add-task__date__input:focus {
-  border-color: #ff8c00;
-  outline: none;
+  cursor: pointer;
 }
 </style>

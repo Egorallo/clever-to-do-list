@@ -6,8 +6,13 @@ const store = createStore({
   state: {
     tasks: [],
     userId: null,
+    isDarkMode: localStorage.getItem('darkMode') === 'true',
   },
   mutations: {
+    setDarkMode(state, isDark) {
+      state.isDarkMode = isDark;
+      document.documentElement.classList.toggle('dark', isDark);
+    },
     setTasks(state, tasks) {
       state.tasks = tasks;
     },
@@ -26,6 +31,10 @@ const store = createStore({
     },
   },
   actions: {
+    saveDarkModePreference({ commit }, isDark) {
+      localStorage.setItem('darkMode', isDark);
+      commit('setDarkMode', isDark);
+    },
     async initializeUser({ commit }) {
       const user = await getCurrentUser();
       if (user) {
@@ -81,6 +90,9 @@ const store = createStore({
     },
   },
   getters: {
+    darkMode(state) {
+      return state.isDarkMode;
+    },
     tasksFromStore(state) {
       return state.tasks;
     },

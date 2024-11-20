@@ -112,18 +112,19 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border: 1px solid rgb(230, 230, 230);
+  border: 1px solid var(--border-calendar-color);
   border-radius: 15px;
   min-width: 50px;
   max-width: 50px;
   width: 100%;
   height: 55px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  background-color: transparent;
+  transition: all 0.4s ease;
 }
 
 .calendar__container__item:not(.active):hover {
-  background-color: #f4f4f4;
+  background-color: var(--bg-color-calendar-hover);
 }
 
 .calendar__container__item + .calendar__dots {
@@ -149,16 +150,29 @@ export default {
 
 .calendar__container__item__day {
   font-size: 13px;
-  color: #646363;
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
 }
 
 .calendar__container__item__date {
   font-weight: bold;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .active {
-  background-color: #212020;
-  color: white;
+  background-color: var(--bg-color-calendar-selected);
+  transition: all 0.4s ease;
+}
+
+.active .calendar__container__item__date {
+  color: var(--bg-color);
+  transition: all 0.4s ease;
+}
+
+.active .calendar__container__item__day {
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
 }
 
 .sunday {

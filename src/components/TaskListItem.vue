@@ -66,15 +66,16 @@ export default {
   gap: 5px;
   height: 45px;
   transition:
-    background-color 0.5s ease,
-    box-shadow 0.5s ease;
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
   border: none;
   border-radius: 15px;
   position: relative;
+  background-color: transparent;
 }
 
 .task-list-item:hover {
-  background-color: #f5f5f5;
+  background-color: var(--bg-color-tasklistitem-hover);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -95,13 +96,13 @@ export default {
   margin-right: 10px;
   cursor: pointer;
   transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
+    background-color 0.4s ease,
+    border-color 0.4s ease;
 }
 
 .task-list-item__title {
   font-size: 16px;
-  color: #646363;
+  color: var(--text-secondary-color);
 }
 
 .task-list-item__circle::after {

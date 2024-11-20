@@ -29,7 +29,9 @@ export default {
         {{ userEmail }}
       </span>
     </div>
-    <div v-else>Today is {{ today }}</div>
+    <div v-else>
+      <p>Today is {{ today }}</p>
+    </div>
     <div class="navtop__right">
       <div class="notification">
         <img src="../assets/icons/notification-bell.svg" />
@@ -52,11 +54,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
-.navtop__welcome {
-  /* display: flex; */
-}
 .navtop__welcome__email {
   font-weight: bold;
 }

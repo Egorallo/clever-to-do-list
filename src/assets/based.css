@@ -1,4 +1,39 @@
+:root {
+  --bg-color: #f8f8f8;
+  --text-main-color: #000;
+  --text-secondary-color: #646363;
+  --border-calendar-color: #e6e6e6;
+  --bg-color-calendar-selected: #212020;
+  --bg-color-calendar-hover: #f4f4f4;
+  --button-main-color: #ff7300;
+  --button-uncompleted-color: #9f7af6;
+  --button-update-color: #e4f8ee;
+  --button-update-text-color: #438f69;
+  --button-update-color-hover: #b3e6d1;
+  --button-main-color-hover: #ff9c4d;
+  --button-uncompleted-color-hover: #b3a1e6;
+  --button-disabled-color: #ccc;
+  --button-text-color: #fff;
+  --loader-primary-color: #f9f9f9;
+  --loader-secondary-color: #ecebeb;
+  --bg-color-tasklistitem-hover: #f5f5f5;
+}
+
+.dark {
+  --bg-color: #2c2c2c;
+  --text-main-color: #fff;
+  --text-secondary-color: #b0b0b0;
+  --border-calendar-color: #808080;
+  --bg-color-calendar-selected: #765885;
+  --bg-color-calendar-hover: #414141;
+  --button-update-color: #7ae2ae;
+  --loader-primary-color: #3b3b3b;
+  --loader-secondary-color: #4c4c4c;
+  --bg-color-tasklistitem-hover: #3f3f3f;
+}
+
 #app {
+  background-color: var(--bg-color);
   font-family: 'Mulish', serif;
   font-size: 14px;
   max-width: 400px;
@@ -13,4 +48,5 @@
     0 4px 10px rgba(0, 0, 0, 0.15),
     0 1px 3px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  transition: all 0.4s ease;
 }

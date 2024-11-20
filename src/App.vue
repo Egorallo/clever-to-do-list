@@ -2,10 +2,12 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
 import NavTop from './components/NavTop.vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import ModeSwitch from './components/ModeSwitch.vue';
 export default {
   components: {
     NavTop,
+    ModeSwitch,
   },
   data() {
     return {
@@ -14,9 +16,13 @@ export default {
   },
   methods: {
     ...mapActions(['initializeUser']),
+    ...mapGetters(['darkMode']),
   },
 
   mounted() {
+    if (this.darkMode()) {
+      document.documentElement.classList.add('dark');
+    }
     onAuthStateChanged(auth, (user) => {
       if (user) {
         this.initializeUser();
@@ -30,6 +36,7 @@ export default {
 </script>
 
 <template>
+  <ModeSwitch />
   <NavTop v-if="isLogged"></NavTop>
   <RouterView />
 </template>
