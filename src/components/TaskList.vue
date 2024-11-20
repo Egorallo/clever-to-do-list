@@ -12,7 +12,6 @@ export default {
   data() {
     return {
       hoveredOn: null,
-      // tasks: [],
       loading: true,
       layout1: [
         { type: 'circle', cx: 12, cy: 20, r: 12 },
@@ -28,6 +27,20 @@ export default {
     };
   },
   methods: {
+    addOneDay(dateString) {
+      // Convert the string to a Date object
+      const date = new Date(dateString);
+
+      // Add one day
+      date.setDate(date.getDate() + 1);
+
+      // Format back to 'yyyy-mm-dd'
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+      const day = String(date.getDate()).padStart(2, '0');
+
+      return `${year}-${month}-${day}`;
+    },
     ...mapActions(['fetchTasks', 'updateTask']),
     ...mapGetters(['tasksFromStore']),
     goToAddTask() {
@@ -36,16 +49,25 @@ export default {
     goToEditTask(taskId) {
       this.$router.push(`/edit-task/${taskId}`);
     },
+    moveUncompleted() {
+      console.log('asdasdasdafd');
+      const tasks = this.filteredTasks();
+      console.log('mmmmmm', tasks[0]);
+      const uncompleted = tasks.filter((task) => {
+        return task.done === false;
+      });
+      console.log('from moveUncompleted()', uncompleted);
+      uncompleted.forEach(async (task) => {
+        const newDate = this.addOneDay(task.date);
+        await this.updateTask({
+          taskId: task.id,
+          updatedData: { date: newDate },
+        });
+      });
+    },
     async changeStatus(task, status) {
       console.log('from task list ', task, status);
       await this.updateTask({ taskId: task.id, updatedData: { done: status } });
-
-      // this.tasks = this.tasks.map((n) => {
-      //   if (n.id === task.id) {
-      //     n.done = status;
-      //   }
-      //   return n;
-      // });
     },
     changeDate(newDate) {
       this.selectedDate = newDate;
@@ -72,21 +94,20 @@ export default {
       console.log('tasks() ', this.tasksFromStore());
       return this.tasksFromStore();
     },
-
-    // filteredTasks() {
-    //   this.tasks;
-    //   if (!this.loading) {
-    //     console.log(new Date(this.selectedDate).toDateString());
-    //     return this.tasks.filter((task) => task.date === this.selectedDate);
-    //   }
-    //   return [];
-    // },
     formattedDate() {
       return new Date(this.selectedDate).toDateString().split(' ').slice(1).join(' ');
     },
     amountOfTasksToday() {
       const word = this.filteredTasks().length === 1 ? 'Task' : 'Tasks';
       return `${this.filteredTasks().length} ${word} on ${this.formattedDate}`;
+    },
+    uncompletedTasks() {
+      const tasks = this.filteredTasks();
+      const shma = tasks.some((task) => {
+        return !task.done;
+      });
+      console.log('shma ', shma);
+      return shma;
     },
   },
 };
@@ -111,6 +132,15 @@ export default {
           @change-done-status="changeStatus"
         />
         <button class="task-list__button" key="0" @click="goToAddTask">+ Add a new task</button>
+        <div class="smol-text" key="5">or</div>
+        <button
+          class="task-list__button uncopmleted"
+          :disabled="!uncompletedTasks"
+          key="16543"
+          @click="moveUncompleted"
+        >
+          Move uncompleted &#10142;
+        </button>
       </transition-group>
 
       <LoadingContent :layout="layout1" v-else />
@@ -159,6 +189,27 @@ export default {
 
 .task-list__button:hover {
   background-color: #ff9c4d;
+}
+
+.task-list__button.uncopmleted {
+  margin-left: auto;
+  margin-right: auto;
+  margin: 10px auto 0 auto;
+  width: 70%;
+  background-color: #9f7af6;
+}
+
+.task-list__button.uncopmleted:hover {
+  background-color: #b3a1e6;
+}
+
+.task-list__button.uncopmleted:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.smol-text {
+  margin: auto;
 }
 
 .task-list__container__tasks {
