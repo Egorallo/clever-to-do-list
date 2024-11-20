@@ -20,9 +20,10 @@ export default {
         { type: 'rect', x: 0, y: 60, rx: 10, ry: 10, width: 345, height: 460 },
       ],
       loaderViewBox: '0 0 345 526',
+      charsLeftInput: 0,
+      charsLeftTextarea: 0,
     };
   },
-
   methods: {
     ...mapGetters(['tasksFromStore']),
     ...mapActions(['updateTask', 'fetchTasks', 'deleteTask']),
@@ -39,10 +40,31 @@ export default {
     changeDoneStatus() {
       this.$emit('change-done-status', this.task, !this.task.done);
     },
+    charsRemaining() {
+      this.$nextTick(() => {
+        if (this.$refs.inputField) {
+          console.log(this.$refs.inputField.value.length);
+          this.charsLeftInput = this.$refs.inputField.value.length;
+        }
+        if (this.$refs.textareaField) {
+          console.log(this.$refs.textareaField.value.length);
+
+          this.charsLeftTextarea = this.$refs.textareaField.value.length;
+        }
+      });
+    },
   },
   computed: {
     isTitleEmpty() {
       return (this.task.title || '').trim() === '';
+    },
+  },
+  watch: {
+    'task.title': function () {
+      this.charsRemaining();
+    },
+    'task.description': function () {
+      this.charsRemaining();
     },
   },
   async created() {
@@ -75,14 +97,20 @@ export default {
           v-model="task.title"
           class="edit-task__title__input"
           placeholder="Update your task title"
+          maxlength="50"
+          ref="inputField"
         />
+        <label>{{ charsLeftInput }}/50</label>
       </div>
       <div v-if="task.date" class="edit-task__description">
         <textarea
           v-model.trim="task.description"
           class="edit-task__description__input"
           placeholder="Update your task description"
+          maxlength="1000"
+          ref="textareaField"
         ></textarea>
+        <label>{{ charsLeftTextarea }}/1000</label>
       </div>
       <div v-if="task.date" class="edit-task__date">
         <input
@@ -259,6 +287,11 @@ export default {
   gap: 40px;
 }
 
+.edit-task__title {
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
+}
+
 .edit-task__title__input {
   font-family: 'Mulish', serif;
   font-size: 16px;
@@ -272,7 +305,9 @@ export default {
 }
 
 .edit-task__description {
-  height: 50vh;
+  height: 42vh;
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
 }
 
 .edit-task__description__input {

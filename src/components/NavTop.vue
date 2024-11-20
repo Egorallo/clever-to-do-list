@@ -93,14 +93,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* min-width: 50px;
-  max-width: 30%; */
-  /* padding: 10px; */
   border: none;
   border-radius: 15px;
-  /* background-color: #fd2b2b; */
   background-color: transparent;
-  /* color: #fff; */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

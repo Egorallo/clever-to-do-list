@@ -114,6 +114,8 @@ export default {
 .sign-form__title_text {
   font-size: 24px;
   font-weight: bold;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .sign-form__container {
@@ -139,6 +141,14 @@ export default {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  background-color: var(--bg-color-form);
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
+}
+
+.sign-form__input::placeholder {
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
 }
 
 .sign-form__button {
@@ -146,19 +156,27 @@ export default {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #ff7300;
-  color: #fff;
+  background-color: var(--button-main-color);
+  color: var(--button-text-color);
   cursor: pointer;
 }
 
 .sign-form__button:hover {
-  background-color: #ff9c4d;
+  background-color: var(--button-main-color-hover);
+}
+
+.sign-form__other {
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
 }
 
 .sign-form__link {
-  color: #ff7300;
+  color: var(--button-main-color);
   cursor: pointer;
   text-decoration: none;
+}
+.sign-form__link:hover {
+  text-decoration: underline;
 }
 
 .error {

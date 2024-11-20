@@ -28,15 +28,12 @@ export default {
   },
   methods: {
     addOneDay(dateString) {
-      // Convert the string to a Date object
       const date = new Date(dateString);
 
-      // Add one day
       date.setDate(date.getDate() + 1);
 
-      // Format back to 'yyyy-mm-dd'
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+      const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
 
       return `${year}-${month}-${day}`;

@@ -1,7 +1,5 @@
 <script>
-// import { doc } from 'firebase/firestore';
 import { mapActions } from 'vuex';
-// import { db } from '@/firebase';
 
 export default {
   props: {
@@ -61,13 +59,13 @@ export default {
 .task-list-item {
   user-select: none;
   display: flex;
+  padding-left: 3px;
+  padding-right: 3px;
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
   height: 45px;
-  transition:
-    background-color 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: all 0.4s ease;
   border: none;
   border-radius: 15px;
   position: relative;
@@ -102,7 +100,11 @@ export default {
 
 .task-list-item__title {
   font-size: 16px;
+  width: 100%;
+  max-width: 320px;
   color: var(--text-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .task-list-item__circle::after {

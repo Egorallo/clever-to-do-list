@@ -16,6 +16,8 @@ export default {
         .split('/')
         .reverse()
         .join('-'),
+      charsLeftInput: 0,
+      charsLeftTextarea: 0,
     };
   },
   computed: {
@@ -32,6 +34,27 @@ export default {
       this.task.done = false;
       this.task.date = new Date().toISOString().split('T')[0];
       this.$router.push('/');
+    },
+    charsRemaining() {
+      this.$nextTick(() => {
+        if (this.$refs.inputField) {
+          console.log(this.$refs.inputField.value.length);
+          this.charsLeftInput = this.$refs.inputField.value.length;
+        }
+        if (this.$refs.textareaField) {
+          console.log(this.$refs.textareaField.value.length);
+
+          this.charsLeftTextarea = this.$refs.textareaField.value.length;
+        }
+      });
+    },
+  },
+  watch: {
+    'task.title': function () {
+      this.charsRemaining();
+    },
+    'task.description': function () {
+      this.charsRemaining();
     },
   },
 };
@@ -52,14 +75,20 @@ export default {
           v-model="task.title"
           class="add-task__title__input"
           placeholder="Enter your task title"
+          maxlength="50"
+          ref="inputField"
         />
+        <label>{{ charsLeftInput }}/50</label>
       </div>
       <div class="add-task__description">
         <textarea
           v-model.trim="task.description"
           class="add-task__description__input"
           placeholder="Enter your task description"
+          maxlength="1000"
+          ref="textareaField"
         ></textarea>
+        <label>{{ charsLeftTextarea }}/1000</label>
       </div>
       <div class="add-task__date">
         <input
@@ -84,7 +113,6 @@ export default {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  /* background-color: var(--bg-color); */
 }
 
 .add-task__header {
@@ -122,10 +150,16 @@ export default {
   gap: 40px;
 }
 
+.add-task__title {
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
+}
+
 .add-task__title__input {
   font-family: 'Mulish', serif;
   font-size: 16px;
   height: 100%;
+  width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
   border: none;
@@ -136,7 +170,9 @@ export default {
 
 .add-task__description {
   max-height: 500px;
-  height: 50vh;
+  height: 42vh;
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
 }
 
 .add-task__description__input {

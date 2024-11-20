@@ -17,6 +17,7 @@
   --loader-primary-color: #f9f9f9;
   --loader-secondary-color: #ecebeb;
   --bg-color-tasklistitem-hover: #f5f5f5;
+  --bg-color-form: #fff;
 }
 
 .dark {
@@ -30,6 +31,7 @@
   --loader-primary-color: #3b3b3b;
   --loader-secondary-color: #4c4c4c;
   --bg-color-tasklistitem-hover: #3f3f3f;
+  --bg-color-form: #2c2c2c;
 }
 
 #app {
@@ -49,4 +51,8 @@
     0 1px 3px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   transition: all 0.4s ease;
+}
+
+#app::-webkit-scrollbar {
+  display: none;
 }

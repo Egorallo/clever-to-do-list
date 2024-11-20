@@ -86,7 +86,6 @@ const store = createStore({
       console.log('data', updatedData);
 
       await updateTask(state.userId, taskId, updatedData);
-      // dispatch('fetchTasks');
     },
   },
   getters: {
