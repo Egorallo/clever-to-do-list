@@ -5,7 +5,7 @@ export default {
   data() {
     return {
       userEmail: '',
-      today: new Date().toJSON().slice(0, 10).split('-').reverse().join('.'),
+      today: new Date().toLocaleDateString().split('/').join('.'),
     };
   },
   methods: {

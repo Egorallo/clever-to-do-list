@@ -24,7 +24,7 @@ export default {
         { type: 'circle', cx: 12, cy: 188, r: 12 },
         { type: 'rect', x: 35, y: 168, rx: 15, ry: 15, width: 310, height: 40 },
       ],
-      selectedDate: new Date().toISOString().split('T')[0],
+      selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
     };
   },
   methods: {
@@ -40,43 +40,53 @@ export default {
       console.log('from task list ', task, status);
       await this.updateTask({ taskId: task.id, updatedData: { done: status } });
 
-      this.tasks = this.tasks.map((n) => {
-        if (n.id === task.id) {
-          n.done = status;
-        }
-        return n;
-      });
+      // this.tasks = this.tasks.map((n) => {
+      //   if (n.id === task.id) {
+      //     n.done = status;
+      //   }
+      //   return n;
+      // });
     },
     changeDate(newDate) {
       this.selectedDate = newDate;
       console.log('from task list ', this.selectedDate);
+    },
+    filteredTasks() {
+      if (!this.loading) {
+        console.log('from filteredTasks()');
+        return this.tasks.filter((task) => task.date === this.selectedDate);
+      }
+      return [];
     },
   },
   async created() {
     this.loading = true;
     console.log('created from tasklist');
     await this.fetchTasks();
+
     this.loading = false;
   },
 
   computed: {
     tasks() {
+      console.log('tasks() ', this.tasksFromStore());
       return this.tasksFromStore();
     },
 
-    filteredTasks() {
-      if (!this.loading) {
-        console.log(new Date(this.selectedDate).toDateString());
-        return this.tasks.filter((task) => task.date === this.selectedDate);
-      }
-      return [];
-    },
+    // filteredTasks() {
+    //   this.tasks;
+    //   if (!this.loading) {
+    //     console.log(new Date(this.selectedDate).toDateString());
+    //     return this.tasks.filter((task) => task.date === this.selectedDate);
+    //   }
+    //   return [];
+    // },
     formattedDate() {
       return new Date(this.selectedDate).toDateString().split(' ').slice(1).join(' ');
     },
     amountOfTasksToday() {
-      const word = this.filteredTasks.length === 1 ? 'Task' : 'Tasks';
-      return `${this.filteredTasks.length} ${word} on ${this.formattedDate}`;
+      const word = this.filteredTasks().length === 1 ? 'Task' : 'Tasks';
+      return `${this.filteredTasks().length} ${word} on ${this.formattedDate}`;
     },
   },
 };
@@ -94,7 +104,7 @@ export default {
       </div>
       <transition-group v-if="!loading" name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem
-          v-for="task in filteredTasks"
+          v-for="task in filteredTasks()"
           :key="task.id"
           :task="task"
           @click="this.$router.push(`/edit-task/${task.id}`)"

@@ -1,5 +1,5 @@
 <script>
-import { deleteTask, updateTask, getTaskById } from '../firestore';
+import { mapActions, mapGetters } from 'vuex';
 import LoadingContent from './LoadingContent.vue';
 export default {
   components: {
@@ -9,27 +9,32 @@ export default {
     return {
       taskId: this.$route.params.id,
       task: { title: '', description: '', date: '' },
-      todaysDate: new Date().toISOString().split('T')[0],
-      maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0],
+      todaysDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
+      maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1))
+        .toLocaleDateString()
+        .split('/')
+        .reverse()
+        .join('-'),
       layout2: [
         { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 20 },
-        { type: 'rect', x: 0, y: 56, rx: 10, ry: 10, width: 345, height: 460 },
+        { type: 'rect', x: 0, y: 60, rx: 10, ry: 10, width: 345, height: 460 },
       ],
-      loaderViewBox: '0 0 345 515',
+      loaderViewBox: '0 0 345 526',
     };
   },
 
   methods: {
-    async delTask(taskId) {
-      await deleteTask(taskId);
+    ...mapGetters(['tasksFromStore']),
+    ...mapActions(['updateTask', 'fetchTasks', 'deleteTask']),
+    delTask(taskId) {
+      this.deleteTask(taskId);
       this.$router.push('/');
     },
-    async updTask(taskId, updatedData) {
-      await updateTask(taskId, updatedData);
+    updTask(taskId, updatedData) {
+      // eslint-disable-next-line no-unused-vars
+      const { id, ...dataWithoutId } = updatedData;
+      this.updateTask({ taskId, updatedData: dataWithoutId });
       this.$router.push('/');
-    },
-    async getById(taskId) {
-      this.task = await getTaskById(taskId);
     },
     changeDoneStatus() {
       this.$emit('change-done-status', this.task, !this.task.done);
@@ -40,8 +45,16 @@ export default {
       return (this.task.title || '').trim() === '';
     },
   },
-  async mounted() {
-    await this.getById(this.taskId);
+  async created() {
+    let tasks = this.tasksFromStore();
+    const foundTask = tasks.find((task) => task.id === this.taskId);
+    if (!foundTask) {
+      await this.fetchTasks();
+      tasks = this.tasksFromStore();
+      this.task = tasks.find((task) => task.id === this.taskId);
+    } else {
+      this.task = foundTask;
+    }
   },
 };
 </script>

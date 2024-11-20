@@ -8,12 +8,14 @@ export default {
         title: '',
         description: '',
         done: false,
-        date: new Date().toISOString().split('T')[0],
+        date: new Date().toLocaleDateString().split('/').reverse().join('-'),
       },
-      todaysDate: new Date().toISOString().split('T')[0],
+      todaysDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       maxDate: new Date(new Date().setMonth(new Date().getFullYear() + 1))
-        .toISOString()
-        .split('T')[0],
+        .toLocaleDateString()
+        .split('/')
+        .reverse()
+        .join('-'),
     };
   },
   computed: {

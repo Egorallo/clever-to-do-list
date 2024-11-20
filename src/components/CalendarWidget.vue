@@ -6,7 +6,7 @@ export default {
   },
   data() {
     return {
-      selectedDate: new Date().toISOString().split('T')[0],
+      selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       currentDate: new Date(),
       additionalDays: 0,
       loadMore: false,

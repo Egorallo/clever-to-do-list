@@ -17,6 +17,13 @@ const store = createStore({
     removeTask(state, taskId) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
+    updateTask(state, { taskId, updatedData }) {
+      console.log('from store updatetask ', state.tasks);
+      state.tasks = state.tasks.map((task) =>
+        task.id === taskId ? { ...task, ...updatedData } : task,
+      );
+      console.log('from store updatetask ', state.tasks);
+    },
   },
   actions: {
     async initializeUser({ commit }) {
@@ -59,14 +66,18 @@ const store = createStore({
         commit('setTasks', tasks);
       }
     },
-    async updateTask({ dispatch, state }, { taskId, updatedData }) {
+    async updateTask({ state }, { taskId, updatedData }) {
       if (!state.userId) {
         console.error('User not logged in');
         return;
       }
+      console.log(updatedData);
+      this.commit('updateTask', { taskId: taskId, updatedData: updatedData });
+
       console.log('data', updatedData);
+
       await updateTask(state.userId, taskId, updatedData);
-      dispatch('fetchTasks');
+      // dispatch('fetchTasks');
     },
   },
   getters: {
