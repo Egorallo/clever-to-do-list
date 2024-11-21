@@ -79,39 +79,39 @@ export default {
 </script>
 
 <template>
-  <div class="edit-task">
-    <div class="edit-task__container">
-      <div class="edit-task__header" v-if="task">
-        <RouterLink class="edit-task__header__link" to="/">
-          <img class="edit-task__header__icon" src="../assets/icons/less-than.svg" />
+  <div class="task-page">
+    <div class="task-page__container">
+      <div class="task-page__header" v-if="task">
+        <RouterLink class="task-page__header__link" to="/">
+          <img class="task-page__header__icon" src="../assets/icons/less-than.svg" />
         </RouterLink>
-        <div class="edit-task__header__text">Edit task</div>
+        <div class="task-page__header__text">Edit task</div>
       </div>
 
-      <div v-if="task.date" class="edit-task__title">
+      <div v-if="task.date" class="task-page__title">
         <input
           type="text"
           v-model="task.title"
-          class="edit-task__title__input"
+          class="task-page__title__input"
           placeholder="Update your task title"
           maxlength="50"
           ref="inputField"
         />
         <label>{{ charsLeftInput }}/50</label>
       </div>
-      <div v-if="task.date" class="edit-task__description">
+      <div v-if="task.date" class="task-page__description">
         <textarea
           v-model.trim="task.description"
-          class="edit-task__description__input"
+          class="task-page__description__input"
           placeholder="Update your task description"
           maxlength="1000"
           ref="textareaField"
         ></textarea>
         <label>{{ charsLeftTextarea }}/1000</label>
       </div>
-      <div v-if="task.date" class="edit-task__date">
+      <div v-if="task.date" class="task-page__date">
         <input
-          class="edit-task__date__input"
+          class="task-page__date__input"
           type="date"
           v-model="task.date"
           :min="todaysDate"
@@ -126,11 +126,11 @@ export default {
           type="checkbox"
           :checked="task.done"
           @click.stop="task.done = !task.done"
-          class="edit-task__checkbox"
+          class="done-status__checkbox"
           :id="task.id"
         />
 
-        <label :for="task.id" @click.stop class="edit-task__circle"></label>
+        <label :for="task.id" @click.stop class="done-status__circle"></label>
         <button class="edit-task__button delete" @click="delTask(taskId)">
           <img class="edit-task__button__img" src="../assets/icons/trash.svg" />
         </button>
@@ -147,45 +147,17 @@ export default {
 </template>
 
 <style scoped>
-.edit-task__checkbox {
-  display: none;
-}
-
-.edit-task__circle {
+.done-status_circle {
   user-select: none;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid orange;
-  display: inline-flex;
-  flex-shrink: 0;
-  flex-grow: 0;
-  align-items: center;
-  justify-content: center;
-  margin-right: 10px;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease;
 }
 
-.edit-task__circle::after {
-  content: '';
-  display: none;
+.done-status__circle::after {
   width: 12px;
   height: 12px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5L10 17L20 7'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.edit-task__checkbox:checked + .edit-task__circle {
-  background-color: orange;
-  border-color: orange;
-}
-
-.edit-task__checkbox:checked + .edit-task__circle::after {
-  display: block;
 }
 
 .edit-task__button__container {
@@ -241,108 +213,5 @@ export default {
 .edit-task__button.update:disabled {
   background-color: var(--button-disabled-color);
   cursor: not-allowed;
-}
-
-.edit-task {
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.edit-task__header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 3px;
-  color: var(--text-main-color);
-  transition: all 0.4s ease;
-}
-
-.edit-task__header__link {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-}
-
-.edit-task__header__icon {
-  width: 24px;
-  height: 24px;
-}
-
-.edit-task__header__text {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.edit-task__container {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  gap: 40px;
-}
-
-.edit-task__title {
-  color: var(--text-secondary-color);
-  transition: all 0.4s ease;
-}
-
-.edit-task__title__input {
-  font-family: 'Mulish', serif;
-  font-size: 16px;
-  width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  border: none;
-  background-color: transparent;
-  color: var(--text-main-color);
-  transition: all 0.4s ease;
-}
-
-.edit-task__description {
-  height: 42vh;
-  color: var(--text-secondary-color);
-  transition: all 0.4s ease;
-}
-
-.edit-task__description__input {
-  font-family: 'Mulish', serif;
-  color: var(--text-secondary-color);
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  border: none;
-  resize: none;
-  background-color: transparent;
-  transition: all 0.4s ease;
-}
-
-.edit-task__description__input:focus,
-.edit-task__title__input:focus {
-  outline: none;
-}
-
-.edit-task__date__input {
-  position: relative;
-  border-radius: 9px;
-  border: 1px solid #e6e6e6;
-  opacity: 0.5;
-  padding: 7px;
-}
-
-.edit-task__date__input::-webkit-calendar-picker-indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: auto;
-  height: auto;
-  color: transparent;
-  background: transparent;
-  cursor: pointer;
 }
 </style>

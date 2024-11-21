@@ -1,0 +1,142 @@
+.task-page {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.task-page__container {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 40px;
+}
+
+.task-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 3px;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
+}
+
+.task-page__header__link {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+.task-page__header__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.task-page__header__text {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.task-page__title {
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
+}
+
+.task-page__title__input {
+  font-family: 'Mulish', serif;
+  font-size: 16px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: none;
+  background-color: transparent;
+  color: var(--text-main-color);
+  transition: all 0.4s ease;
+}
+
+.task-page__description {
+  height: 42vh;
+  color: var(--text-secondary-color);
+  transition: all 0.4s ease;
+}
+
+.task-page__description__input {
+  font-family: 'Mulish', serif;
+  color: var(--text-secondary-color);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: none;
+  resize: none;
+  background-color: transparent;
+  transition: all 0.4s ease;
+}
+
+.task-page__description__input:focus,
+.task-page__title__input:focus {
+  outline: none;
+}
+
+.task-page__date__input {
+  position: relative;
+  border-radius: 9px;
+  border: 1px solid #e6e6e6;
+  opacity: 0.5;
+  padding: 7px;
+}
+
+.task-page__date__input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  color: transparent;
+  background: transparent;
+  cursor: pointer;
+}
+
+.done-status__checkbox {
+  display: none;
+}
+
+.done-status__circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid orange;
+  display: inline-flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.done-status__circle::after {
+  content: '';
+  display: none;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5L10 17L20 7'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.done-status__checkbox:checked + .done-status__circle {
+  background-color: orange;
+  border-color: orange;
+}
+
+.done-status__checkbox:checked + .done-status__circle::after {
+  display: block;
+}

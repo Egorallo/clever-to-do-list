@@ -58,38 +58,38 @@ export default {
 </script>
 
 <template>
-  <div class="add-task">
-    <div class="add-task__container">
-      <div class="add-task__header">
-        <RouterLink class="add-task__header__link" to="/">
-          <img class="add-task__header__icon" src="../assets/icons/less-than.svg" />
+  <div class="task-page">
+    <div class="task-page__container">
+      <div class="task-page__header">
+        <RouterLink class="task-page__header__link" to="/">
+          <img class="task-page__header__icon" src="../assets/icons/less-than.svg" />
         </RouterLink>
-        <div class="add-task__header__text">New task</div>
+        <div class="task-page__header__text">New task</div>
       </div>
-      <div class="add-task__title">
+      <div class="task-page__title">
         <input
           type="text"
           v-model="task.title"
-          class="add-task__title__input"
+          class="task-page__title__input"
           placeholder="Enter your task title"
           maxlength="50"
           ref="inputField"
         />
         <label>{{ charsLeftInput }}/50</label>
       </div>
-      <div class="add-task__description">
+      <div class="task-page__description">
         <textarea
           v-model.trim="task.description"
-          class="add-task__description__input"
+          class="task-page__description__input"
           placeholder="Enter your task description"
           maxlength="1000"
           ref="textareaField"
         ></textarea>
         <label>{{ charsLeftTextarea }}/1000</label>
       </div>
-      <div class="add-task__date">
+      <div class="task-page__date">
         <input
-          class="add-task__date__input"
+          class="task-page__date__input"
           type="date"
           v-model="task.date"
           :min="todaysDate"
@@ -106,89 +106,6 @@ export default {
 </template>
 
 <style>
-.add-task {
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.add-task__header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding-left: 3px;
-  color: var(--text-main-color);
-  transition: all 0.4s ease;
-}
-
-.add-task__header__link {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-  line-height: 0;
-}
-
-.add-task__header__icon {
-  width: 24px;
-  height: 24px;
-}
-
-.add-task__header__text {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.add-task__container {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  gap: 40px;
-}
-
-.add-task__title {
-  color: var(--text-secondary-color);
-  transition: all 0.4s ease;
-}
-
-.add-task__title__input {
-  font-family: 'Mulish', serif;
-  font-size: 16px;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  border: none;
-  background-color: transparent;
-  color: var(--text-main-color);
-  transition: all 0.4s ease;
-}
-
-.add-task__description {
-  max-height: 500px;
-  height: 42vh;
-  color: var(--text-secondary-color);
-  transition: all 0.4s ease;
-}
-
-.add-task__description__input {
-  font-family: 'Mulish', serif;
-  color: var(--text-secondary-color);
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  box-sizing: border-box;
-  border: none;
-  resize: none;
-  background-color: transparent;
-  transition: all 0.4s ease;
-}
-
-.add-task__description__input:focus,
-.add-task__title__input:focus {
-  outline: none;
-}
 .add-task__button__wrapper {
   border-top: 1px solid #d4d4d4;
   padding-top: 10px;
@@ -212,26 +129,5 @@ export default {
 .add-task__button:disabled {
   background-color: var(--button-disabled-color);
   cursor: not-allowed;
-}
-
-.add-task__date__input {
-  position: relative;
-  border-radius: 9px;
-  border: 1px solid #e6e6e6;
-  opacity: 0.5;
-  padding: 7px;
-}
-
-.add-task__date__input::-webkit-calendar-picker-indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: auto;
-  height: auto;
-  color: transparent;
-  background: transparent;
-  cursor: pointer;
 }
 </style>

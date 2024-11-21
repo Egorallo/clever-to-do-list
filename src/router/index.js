@@ -31,6 +31,7 @@ const router = createRouter({
       path: '/add-task',
       name: 'add-task',
       component: AddTask,
+      props: true,
       meta: {
         requiresAuth: true,
       },
