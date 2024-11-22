@@ -14,14 +14,19 @@ export default {
       hoveredOn: null,
       loading: true,
       layout1: [
-        { type: 'circle', cx: 12, cy: 20, r: 12 },
-        { type: 'rect', x: 35, y: 0, rx: 15, ry: 15, width: 310, height: 40 },
-        { type: 'circle', cx: 12, cy: 76, r: 12 },
-        { type: 'rect', x: 35, y: 56, rx: 15, ry: 15, width: 310, height: 40 },
-        { type: 'circle', cx: 12, cy: 132, r: 12 },
-        { type: 'rect', x: 35, y: 112, rx: 15, ry: 15, width: 310, height: 40 },
-        { type: 'circle', cx: 12, cy: 188, r: 12 },
-        { type: 'rect', x: 35, y: 168, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 340, height: 50 },
+
+        { type: 'circle', cx: 12, cy: 142, r: 12 },
+        { type: 'rect', x: 35, y: 122, rx: 15, ry: 15, width: 310, height: 40 },
+
+        { type: 'circle', cx: 12, cy: 198, r: 12 },
+        { type: 'rect', x: 35, y: 178, rx: 15, ry: 15, width: 310, height: 40 },
+
+        { type: 'circle', cx: 12, cy: 254, r: 12 },
+        { type: 'rect', x: 35, y: 234, rx: 15, ry: 15, width: 310, height: 40 },
+
+        { type: 'circle', cx: 12, cy: 310, r: 12 },
+        { type: 'rect', x: 35, y: 290, rx: 15, ry: 15, width: 310, height: 40 },
       ],
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       startDate: '',
@@ -141,7 +146,7 @@ export default {
         </button>
       </transition-group>
     </div>
-    <LoadingContent :layout="layout1" v-else />
+    <LoadingContent :view-box="'0 -10 345 400'" :layout="layout1" v-else />
   </div>
 </template>
 
