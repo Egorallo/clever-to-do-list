@@ -5,6 +5,7 @@ import AddTask from '@/components/AddTask.vue';
 import EditTask from '@/components/EditTask.vue';
 import { getCurrentUser } from '@/auth';
 import TaskList from '@/components/TaskList.vue';
+import NotFound from '@/components/NotFound.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,11 @@ const router = createRouter({
       meta: {
         requiresAuth: true,
       },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFound,
     },
   ],
 });
