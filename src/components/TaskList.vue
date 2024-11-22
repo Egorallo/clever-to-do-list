@@ -71,6 +71,7 @@ export default {
     },
     changeDate(newDate) {
       this.selectedDate = newDate;
+
       if (new Date(this.selectedDate) < new Date()) {
         this.canAdd = false;
       } else {

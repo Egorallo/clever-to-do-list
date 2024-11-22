@@ -65,7 +65,10 @@ export default {
       const startDate = new Date(this.startDate);
 
       const days = [];
-      const daysBetween = Math.ceil((now - startDate) / (1000 * 60 * 60 * 24));
+
+      let daysBetween = Math.ceil((now - startDate) / (1000 * 60 * 60 * 24));
+      if (new Date(this.startDate).toLocaleDateString('en-CA') === now.toLocaleDateString('en-CA'))
+        daysBetween = 0;
       for (let i = daysBetween; i >= 0; i--) {
         const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
         days.push({
