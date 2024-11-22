@@ -24,6 +24,8 @@ export default {
         { type: 'rect', x: 35, y: 168, rx: 15, ry: 15, width: 310, height: 40 },
       ],
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
+      startDate: '',
+      canAdd: true,
     };
   },
   methods: {
@@ -39,7 +41,7 @@ export default {
       return `${year}-${month}-${day}`;
     },
     ...mapActions(['fetchTasks', 'updateTask']),
-    ...mapGetters(['tasksFromStore']),
+    ...mapGetters(['tasksFromStore', 'userRegisteredDate']),
     goToAddTask() {
       this.$router.push('/add-task');
     },
@@ -64,6 +66,11 @@ export default {
     },
     changeDate(newDate) {
       this.selectedDate = newDate;
+      if (new Date(this.selectedDate) < new Date()) {
+        this.canAdd = false;
+      } else {
+        this.canAdd = true;
+      }
     },
     filteredTasks() {
       if (!this.loading) {
@@ -75,6 +82,7 @@ export default {
   async created() {
     this.loading = true;
     await this.fetchTasks();
+    this.startDate = this.userRegisteredDate();
     this.loading = false;
   },
 
@@ -102,12 +110,16 @@ export default {
     <div class="task-list__header">
       <div class="task-list__header__text">Your task manager</div>
     </div>
-    <div class="task-list__container">
-      <CalendarWidget :tasks="tasks" @changed-date="changeDate"></CalendarWidget>
+    <div class="task-list__container" v-if="!loading">
+      <CalendarWidget
+        :startDate="startDate"
+        :tasks="tasks"
+        @changed-date="changeDate"
+      ></CalendarWidget>
       <div class="task-list__container__quantity">
         {{ amountOfTasksToday }}
       </div>
-      <transition-group v-if="!loading" name="fade" tag="div" class="task-list__container__tasks">
+      <transition-group name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem
           v-for="task in filteredTasks()"
           :key="task.id"
@@ -115,7 +127,9 @@ export default {
           @click="this.$router.push(`/edit-task/${task.id}`)"
           @change-done-status="changeStatus"
         />
-        <button class="task-list__button" key="0" @click="goToAddTask">+ Add a new task</button>
+        <button class="task-list__button" key="0" @click="goToAddTask" :disabled="!canAdd">
+          + Add a new task
+        </button>
         <div class="smol-text" key="5">or</div>
         <button
           class="task-list__button uncopmleted"
@@ -126,9 +140,8 @@ export default {
           Move uncompleted &#10142;
         </button>
       </transition-group>
-
-      <LoadingContent :layout="layout1" v-else />
     </div>
+    <LoadingContent :layout="layout1" v-else />
   </div>
 </template>
 
@@ -194,7 +207,7 @@ export default {
   background-color: var(--button-uncompleted-color-hover);
 }
 
-.task-list__button.uncopmleted:disabled {
+.task-list__button:disabled {
   background-color: var(--button-disabled-color);
   cursor: not-allowed;
 }

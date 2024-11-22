@@ -19,6 +19,9 @@ const store = createStore({
     setUserId(state, userId) {
       state.userId = userId;
     },
+    setUserRegisteredDate(state, date) {
+      state.userRegisteredDate = date;
+    },
     removeTask(state, taskId) {
       state.tasks = state.tasks.filter((task) => task.id !== taskId);
     },
@@ -37,6 +40,7 @@ const store = createStore({
       const user = await getCurrentUser();
       if (user) {
         commit('setUserId', user.uid);
+        commit('setUserRegisteredDate', user.metadata.creationTime);
       }
     },
     async fetchTasks({ commit, state }) {
@@ -84,6 +88,9 @@ const store = createStore({
     },
     user(state) {
       return state.userId;
+    },
+    userRegisteredDate(state) {
+      return state.userRegisteredDate;
     },
   },
 });

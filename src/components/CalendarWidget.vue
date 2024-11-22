@@ -17,6 +17,10 @@ export default {
       required: false,
       default: () => [],
     },
+    startDate: {
+      type: String,
+      required: false,
+    },
   },
 
   methods: {
@@ -44,16 +48,39 @@ export default {
       this.loadMore = true;
       this.additionalDays += 30;
     },
+    scrollToCurrentDay() {
+      const currentDayElement = this.$refs.calendarContainer.querySelector('.current');
+      if (currentDayElement) {
+        currentDayElement.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'start',
+        });
+      }
+    },
   },
   computed: {
     daysToRender() {
       const now = new Date();
       const totalDaysToRender = 30 + this.additionalDays;
+      const startDate = new Date(this.startDate);
 
       const days = [];
-      for (let i = 0; i < totalDaysToRender; i++) {
-        const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
-
+      const daysBetween = Math.ceil((now - startDate) / (1000 * 60 * 60 * 24));
+      for (let i = daysBetween; i >= 0; i--) {
+        const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+        days.push({
+          date: date.getDate(),
+          dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
+          dateForFilter: date.toLocaleDateString('en-CA'),
+          doneNotIndicators: this.doneNotIndicators(date.toLocaleDateString('en-CA')),
+        });
+      }
+      for (let i = 1; i <= totalDaysToRender; i++) {
+        const date = new Date(
+          startDate.getFullYear(),
+          startDate.getMonth(),
+          startDate.getDate() + i,
+        );
         days.push({
           date: date.getDate(),
           dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
@@ -64,11 +91,14 @@ export default {
       return days;
     },
   },
+  mounted() {
+    this.scrollToCurrentDay();
+  },
 };
 </script>
 
 <template>
-  <div class="calendar">
+  <div class="calendar" ref="calendarContainer">
     <div class="calendar__container">
       <div v-for="(day, index) in daysToRender" :key="index">
         <div
@@ -76,6 +106,7 @@ export default {
           :class="{
             active: selectedDate === day.dateForFilter,
             sunday: day.dayName === 'Sun' && selectedDate !== day.dateForFilter,
+            current: day.dateForFilter === new Date().toLocaleDateString('en-CA'),
           }"
           @click="changeDate(day.dateForFilter)"
         >

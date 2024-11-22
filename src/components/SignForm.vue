@@ -7,6 +7,7 @@ export default {
       password: '',
       error: null,
       signmessage: '',
+      dateRegistered: new Date().toLocaleDateString().split('/').reverse().join('-'),
     };
   },
   props: {
@@ -34,7 +35,7 @@ export default {
         } else {
           this.error = null;
           this.signmessage = 'Creating your account...';
-          await signUp(this.email, this.password);
+          await signUp(this.email, this.password, this.dateRegistered);
           this.$router.push('/');
         }
       } catch (error) {

@@ -1,4 +1,3 @@
-// import './assets/main.css';
 import './assets/based.css';
 import store from './store';
 
