@@ -198,11 +198,11 @@ export default {
   background-color: var(--button-main-color);
   color: var(--button-text-color);
   cursor: pointer;
-  transition: background-color 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .task-list__button:hover {
-  background-color: var(--button-main-color-hover);
+  opacity: 0.7;
 }
 
 .task-list__button.uncopmleted {
@@ -213,12 +213,9 @@ export default {
   background-color: var(--button-uncompleted-color);
 }
 
-.task-list__button.uncopmleted:hover {
-  background-color: var(--button-uncompleted-color-hover);
-}
-
 .task-list__button:disabled {
   background-color: var(--button-disabled-color);
+  opacity: 0.2;
   cursor: not-allowed;
 }
 

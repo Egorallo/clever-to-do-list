@@ -7,15 +7,15 @@
   --border-calendar-color: #e6e6e6;
   --bg-color-calendar-selected: #212020;
   --bg-color-calendar-hover: #f4f4f4;
+  --text-selected-day-calendar-color: #ffbe7e;
   --button-main-color: #ff7300;
   --button-uncompleted-color: #9f7af6;
   --button-update-color: #e4f8ee;
   --button-update-text-color: #438f69;
   --button-update-color-hover: #b3e6d1;
   --button-main-color-hover: #ff9c4d;
-  --button-uncompleted-color-hover: #b3a1e6;
   --button-disabled-color: #ccc;
-  --button-text-color: #fff;
+  --button-text-color: #000000;
   --loader-primary-color: #f9f9f9;
   --loader-secondary-color: #ecebeb;
   --bg-color-tasklistitem-hover: #f5f5f5;
@@ -27,8 +27,9 @@
   --text-main-color: #fff;
   --text-secondary-color: #b0b0b0;
   --border-calendar-color: #808080;
-  --bg-color-calendar-selected: #765885;
+  --bg-color-calendar-selected: #ff7300;
   --bg-color-calendar-hover: #414141;
+  --text-selected-day-calendar-color: #472715;
   --button-update-color: #7ae2ae;
   --loader-primary-color: #3b3b3b;
   --loader-secondary-color: #4c4c4c;

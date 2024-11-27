@@ -200,7 +200,7 @@ export default {
 }
 
 .active .calendar__container__item__day {
-  color: var(--text-secondary-color);
+  color: var(--text-selected-day-calendar-color);
   transition: all 0.4s ease;
 }
 

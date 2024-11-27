@@ -212,6 +212,7 @@ export default {
 
 .edit-task__button.update:disabled {
   background-color: var(--button-disabled-color);
+  opacity: 0.2;
   cursor: not-allowed;
 }
 </style>

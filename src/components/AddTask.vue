@@ -128,6 +128,7 @@ export default {
 
 .add-task__button:disabled {
   background-color: var(--button-disabled-color);
+  opacity: 0.2;
   cursor: not-allowed;
 }
 </style>
