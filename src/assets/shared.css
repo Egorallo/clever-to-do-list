@@ -37,6 +37,7 @@
 .task-page__header__text {
   font-size: 24px;
   font-weight: bold;
+  margin: 0;
 }
 
 .task-page__title {

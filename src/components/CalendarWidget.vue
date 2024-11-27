@@ -97,7 +97,7 @@ export default {
 </script>
 
 <template>
-  <div class="calendar" ref="calendarContainer">
+  <section class="calendar" ref="calendarContainer">
     <div class="calendar__container">
       <div v-for="(day, index) in daysToRender" :key="index">
         <div
@@ -109,8 +109,8 @@ export default {
           }"
           @click="changeDate(day.dateForFilter)"
         >
-          <div class="calendar__container__item__day">{{ day.dayName }}</div>
-          <div class="calendar__container__item__date">{{ day.date }}</div>
+          <span class="calendar__container__item__day">{{ day.dayName }}</span>
+          <span class="calendar__container__item__date">{{ day.date }}</span>
         </div>
         <div class="calendar__dots">
           <div v-if="day.doneNotIndicators.notDone" class="calendar__dot not"></div>
@@ -119,7 +119,7 @@ export default {
       </div>
       <TriggerLoad @intersected="loadMoreDays" />
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>

@@ -28,7 +28,6 @@ export default {
     <label for="switch" class="toggler-container">
       <div class="toggler"></div>
     </label>
-    <div class="switch-text">🌙</div>
   </div>
 </template>
 
@@ -57,7 +56,7 @@ export default {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background-color: #f7bfbf;
+  background-color: #ff7300;
   margin-left: 5px;
   transition: all 0.3s;
 }

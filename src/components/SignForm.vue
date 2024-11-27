@@ -70,9 +70,9 @@ export default {
 </script>
 
 <template>
-  <div class="sign-form">
-    <div class="sign-form__container">
-      <div class="sign-form__title sign-form__title_text">{{ signTitle }}</div>
+  <main class="sign-form">
+    <section class="sign-form__container">
+      <h1 class="sign-form__title sign-form__title_text">{{ signTitle }}</h1>
       <form class="sign-form__form" @submit.prevent="signInAcc">
         <input class="sign-form__input" v-model="email" placeholder="Email" autocomplete="email" />
         <input
@@ -92,16 +92,20 @@ export default {
       </div>
       <div class="sign-form__other">
         <div v-if="newAcc">
-          <span>Don't have an account? </span>
-          <RouterLink to="/sign-up" class="sign-form__link">Sign Up</RouterLink>
+          <p>
+            Don't have an account?
+            <RouterLink to="/sign-up" class="sign-form__link">Sign Up</RouterLink>
+          </p>
         </div>
         <div v-else>
-          <span>Already have an account? </span>
-          <RouterLink to="/sign-in" class="sign-form__link">Sign In</RouterLink>
+          <p>
+            Already have an account?
+            <RouterLink to="/sign-in" class="sign-form__link">Sign In</RouterLink>
+          </p>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <style scoped>

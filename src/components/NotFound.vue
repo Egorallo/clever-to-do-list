@@ -1,8 +1,8 @@
 <template>
-  <div class="not-found">
-    <div class="not-found__text">This is not what you are looking for</div>
+  <main class="not-found">
+    <h1 class="not-found__text">This is not what you are looking for</h1>
     <router-link class="not-found__link" to="/">Go back to the main page</router-link>
-  </div>
+  </main>
 </template>
 
 <style>
@@ -19,6 +19,7 @@
 .not-found__text {
   color: var(--text-main-color);
   transition: all 0.4s ease;
+  font-size: 20px;
 }
 
 .not-found__link {

@@ -79,16 +79,16 @@ export default {
 </script>
 
 <template>
-  <div class="task-page">
-    <div class="task-page__container">
+  <main class="task-page">
+    <section class="task-page__container">
       <div class="task-page__header" v-if="task">
         <RouterLink class="task-page__header__link" to="/">
           <img class="task-page__header__icon" src="../assets/icons/less-than.svg" />
         </RouterLink>
-        <div class="task-page__header__text">Edit task</div>
+        <h1 class="task-page__header__text">Edit task</h1>
       </div>
 
-      <div v-if="task.date" class="task-page__title">
+      <section v-if="task.date" class="task-page__title">
         <input
           type="text"
           v-model="task.title"
@@ -98,8 +98,8 @@ export default {
           ref="inputField"
         />
         <label>{{ charsLeftInput }}/50</label>
-      </div>
-      <div v-if="task.date" class="task-page__description">
+      </section>
+      <section v-if="task.date" class="task-page__description">
         <textarea
           v-model.trim="task.description"
           class="task-page__description__input"
@@ -108,8 +108,8 @@ export default {
           ref="textareaField"
         ></textarea>
         <label>{{ charsLeftTextarea }}/1000</label>
-      </div>
-      <div v-if="task.date" class="task-page__date">
+      </section>
+      <section v-if="task.date" class="task-page__date">
         <input
           class="task-page__date__input"
           type="date"
@@ -117,7 +117,7 @@ export default {
           :min="todaysDate"
           :max="maxDate"
         />
-      </div>
+      </section>
 
       <LoadingContent v-else :layout="layout2" :view-box="loaderViewBox"></LoadingContent>
 
@@ -142,8 +142,8 @@ export default {
           Complete &#x2713;
         </button>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <style scoped>

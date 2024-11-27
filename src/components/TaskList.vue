@@ -116,19 +116,19 @@ export default {
 </script>
 
 <template>
-  <div class="task-list">
+  <main class="task-list">
     <div class="task-list__header">
-      <div class="task-list__header__text">Your task manager</div>
+      <h1 class="task-list__header__text">Your task manager</h1>
     </div>
-    <div class="task-list__container" v-if="!loading">
+    <section class="task-list__container" v-if="!loading">
       <CalendarWidget
         :startDate="startDate"
         :tasks="tasks"
         @changed-date="changeDate"
       ></CalendarWidget>
-      <div class="task-list__container__quantity">
+      <p class="task-list__container__quantity">
         {{ amountOfTasksToday }}
-      </div>
+      </p>
       <transition-group name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem
           v-for="task in filteredTasks()"
@@ -140,7 +140,7 @@ export default {
         <button class="task-list__button" key="0" @click="goToAddTask" :disabled="!canAdd">
           + Add a new task
         </button>
-        <div class="smol-text" key="5">or</div>
+        <span class="smol-text" key="5">or</span>
         <button
           class="task-list__button uncopmleted"
           :disabled="!uncompletedTasks"
@@ -150,9 +150,9 @@ export default {
           Move uncompleted &#10142;
         </button>
       </transition-group>
-    </div>
+    </section>
     <LoadingContent :view-box="'0 -10 345 400'" :layout="layout1" v-else />
-  </div>
+  </main>
 </template>
 
 <style scoped>

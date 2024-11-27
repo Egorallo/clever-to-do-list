@@ -22,17 +22,17 @@ export default {
 </script>
 
 <template>
-  <div class="navtop">
-    <div v-if="this.$route.path === '/'" class="navtop__welcome">
+  <header class="navtop">
+    <section v-if="this.$route.path === '/'" class="navtop__welcome">
       Logged in as:&nbsp;
       <span class="navtop__welcome__email">
         {{ userEmail }}
       </span>
-    </div>
-    <div v-else>
+    </section>
+    <section v-else>
       <p>Today is {{ today }}</p>
-    </div>
-    <div class="navtop__right">
+    </section>
+    <nav class="navtop__right">
       <div class="notification">
         <img src="../assets/icons/notification-bell.svg" />
         <div class="notification-badge">3</div>
@@ -44,8 +44,8 @@ export default {
           alt="Sign out"
         />
       </button>
-    </div>
-  </div>
+    </nav>
+  </header>
 </template>
 
 <style scoped>
