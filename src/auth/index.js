@@ -34,7 +34,7 @@ export async function signIn(email, password) {
       'auth/weak-password': 'Weak password (Minimum 6 characters)',
     };
     const message = errorMessages[error.code] || 'An unknown error occurred, refresh the page';
-    return { success: false, message };
+    return { failed: true, message };
   }
 }
 
@@ -53,7 +53,7 @@ export async function signUp(email, password) {
       'auth/weak-password': 'Weak password (Minimum 6 characters)',
     };
     const message = errorMessages[error.code] || 'An unknown error occurred, refresh the page';
-    return { success: false, message };
+    return { failed: true, message };
   }
 }
 

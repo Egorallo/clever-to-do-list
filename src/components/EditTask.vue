@@ -20,10 +20,12 @@ export default {
         .reverse()
         .join('-'),
       layout2: [
-        { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 30 },
-        { type: 'rect', x: 0, y: 80, rx: 10, ry: 10, width: 345, height: 350 },
+        { type: 'rect', x: 0, y: 0, rx: 15, ry: 15, width: 945, height: 500 },
+
+        // { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 30 },
+        // { type: 'rect', x: 0, y: 80, rx: 10, ry: 10, width: 345, height: 350 },
       ],
-      loaderViewBox: '0 0 345 485',
+      loaderViewBox: '0 0 945 500',
       charsLeftInput: 0,
       charsLeftTextarea: 0,
     };
@@ -168,7 +170,7 @@ export default {
 .edit-task__button__container {
   display: flex;
   width: 100%;
-  max-width: 400px;
+  /* max-width: 400px; */
   gap: 1vw;
   justify-content: flex-end;
   align-items: center;
@@ -193,6 +195,7 @@ export default {
   height: 50px;
   background-color: var(--button-update-color);
   color: #438f69;
+  border-radius: 16px;
   font-weight: bold;
   padding: 10px 10px 10px 10px;
   transition: all 0.4s ease;

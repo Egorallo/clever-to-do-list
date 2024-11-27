@@ -113,6 +113,8 @@ export default {
 .add-task__button__wrapper {
   border-top: 1px solid #d4d4d4;
   padding-top: 10px;
+  display: flex;
+  justify-content: center;
 }
 .add-task__button {
   font-family: 'Mulish', serif;

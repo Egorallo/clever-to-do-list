@@ -32,10 +32,6 @@ export default {
   <header class="navtop">
     <ModeSwitch />
     <nav class="navtop__right">
-      <!-- <div class="notification">
-        <img src="../assets/icons/notification-bell.svg" />
-        <div class="notification-badge">3</div>
-      </div> -->
       <button class="navtop__button__signout" @click="handleSignOut">
         <IconSignOut />
       </button>

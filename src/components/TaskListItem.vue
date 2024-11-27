@@ -59,12 +59,13 @@ export default {
 
 <style scoped>
 .checkbox-container {
+  width: 90%;
   display: flex;
   align-items: center;
   margin-left: 10px;
 }
 .task-list-item {
-  max-width: 400px;
+  /* max-width: 400px; */
   width: 100%;
   height: 45px;
   user-select: none;
@@ -86,8 +87,8 @@ export default {
 
 .task-list-item__title {
   font-size: 16px;
-  width: 100%;
-  max-width: 300px;
+  /* width: 100%; */
+  width: 70%;
   color: var(--text-secondary-color);
   overflow: hidden;
   text-overflow: ellipsis;

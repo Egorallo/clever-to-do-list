@@ -14,19 +14,21 @@ export default {
       hoveredOn: null,
       loading: true,
       layout1: [
-        { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 340, height: 50 },
+        { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 945, height: 600 },
 
-        { type: 'circle', cx: 12, cy: 176, r: 12 },
-        { type: 'rect', x: 35, y: 156, rx: 15, ry: 15, width: 310, height: 40 },
+        // { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 945, height: 50 },
 
-        { type: 'circle', cx: 12, cy: 232, r: 12 },
-        { type: 'rect', x: 35, y: 212, rx: 15, ry: 15, width: 310, height: 40 },
+        // { type: 'circle', cx: 12, cy: 176, r: 12 },
+        // { type: 'rect', x: 35, y: 156, rx: 15, ry: 15, width: 310, height: 40 },
 
-        { type: 'circle', cx: 12, cy: 288, r: 12 },
-        { type: 'rect', x: 35, y: 268, rx: 15, ry: 15, width: 310, height: 40 },
+        // { type: 'circle', cx: 12, cy: 232, r: 12 },
+        // { type: 'rect', x: 35, y: 212, rx: 15, ry: 15, width: 310, height: 40 },
 
-        { type: 'circle', cx: 12, cy: 344, r: 12 },
-        { type: 'rect', x: 35, y: 324, rx: 15, ry: 15, width: 310, height: 40 },
+        // { type: 'circle', cx: 12, cy: 288, r: 12 },
+        // { type: 'rect', x: 35, y: 268, rx: 15, ry: 15, width: 310, height: 40 },
+
+        // { type: 'circle', cx: 12, cy: 344, r: 12 },
+        // { type: 'rect', x: 35, y: 324, rx: 15, ry: 15, width: 310, height: 40 },
       ],
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       startDate: '',
@@ -120,6 +122,7 @@ export default {
     <div class="task-list__header">
       <h1 class="task-list__header__text">Your task manager</h1>
     </div>
+    <div></div>
     <section class="task-list__container" v-if="!loading">
       <CalendarWidget
         :startDate="startDate"
@@ -137,21 +140,21 @@ export default {
           @click="this.$router.push(`/edit-task/${task.id}`)"
           @change-done-status="changeStatus"
         />
-        <button class="task-list__button" key="0" @click="goToAddTask" :disabled="!canAdd">
-          + Add a new task
-        </button>
-        <span class="smol-text" key="5">or</span>
-        <button
-          class="task-list__button uncopmleted"
-          :disabled="!uncompletedTasks"
-          key="16543"
-          @click="moveUncompleted"
-        >
-          Move uncompleted &#10142;
-        </button>
+        <div class="task-list__button-container" key="-31a">
+          <button class="task-list__button" @click="goToAddTask" :disabled="!canAdd">
+            + Add a new task
+          </button>
+          <button
+            class="task-list__button uncopmleted"
+            :disabled="!uncompletedTasks"
+            @click="moveUncompleted"
+          >
+            Move uncompleted &#10142;
+          </button>
+        </div>
       </transition-group>
     </section>
-    <LoadingContent :view-box="'0 -10 345 400'" :layout="layout1" v-else />
+    <LoadingContent :view-box="'0 -10 945 1000'" :layout="layout1" v-else />
   </main>
 </template>
 
@@ -188,12 +191,18 @@ export default {
   transition: all 0.4s ease;
 }
 
+.task-list__button-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
 .task-list__button {
   font-family: 'Mulish', serif;
   font-size: 16px;
   margin-top: 50px;
-  width: 100%;
-  max-width: 400px;
+  width: 250px;
+  /* max-width: 400px; */
   padding: 17px;
   border: none;
   border-radius: 15px;
@@ -208,10 +217,6 @@ export default {
 }
 
 .task-list__button.uncopmleted {
-  margin-left: auto;
-  margin-right: auto;
-  margin: 10px auto 0 auto;
-  width: 70%;
   background-color: var(--button-uncompleted-color);
 }
 
@@ -250,5 +255,18 @@ export default {
 
 .fade-leave-active {
   position: absolute;
+}
+
+@media (width <= 500px) {
+  .task-list__button-container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .task-list__button {
+    margin-top: 40px;
+    width: 100%;
+    /* max-width: 400px; */
+  }
 }
 </style>

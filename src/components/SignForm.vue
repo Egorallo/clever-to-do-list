@@ -32,8 +32,7 @@ export default {
         this.error = null;
         this.signmessage = 'Signing you in...';
         const result = await signIn(this.email, this.password);
-
-        if (!result.success) {
+        if (result.failed) {
           this.signmessage = '';
           this.addToast(result.message);
           return;
@@ -44,7 +43,7 @@ export default {
         this.signmessage = 'Creating your account...';
         const result = await signUp(this.email, this.password, this.dateRegistered);
 
-        if (!result.success) {
+        if (result.failed) {
           this.signmessage = '';
           this.addToast(result.message);
           return;
