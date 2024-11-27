@@ -80,4 +80,4 @@ Link to the [task](https://drive.google.com/file/d/18I1PxOxZn2lwm__YeOtMNoWeiXyg
 
 ## Deployed on Firebase
 
-https://to-do-list-1ba63.web.app/sign-in
+https://to-do-list-1ba63.web.app
