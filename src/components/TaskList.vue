@@ -8,7 +8,7 @@ export default {
     TaskListItem,
     LoadingContent,
     CalendarWidget,
-  }, // 34
+  },
   data() {
     return {
       hoveredOn: null,

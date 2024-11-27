@@ -8,8 +8,15 @@ const store = createStore({
     userId: null,
     isDarkMode: localStorage.getItem('darkMode') === 'true',
     selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
+    toasts: [],
   },
   mutations: {
+    setToast(state, toast) {
+      state.toasts.push(toast);
+      setTimeout(() => {
+        state.toasts.shift();
+      }, 3000);
+    },
     setSelectedDate(state, date) {
       state.selectedDate = date;
     },
@@ -36,6 +43,9 @@ const store = createStore({
     },
   },
   actions: {
+    addToast({ commit }, message) {
+      commit('setToast', message);
+    },
     saveDarkModePreference({ commit }, isDark) {
       localStorage.setItem('darkMode', isDark);
       commit('setDarkMode', isDark);

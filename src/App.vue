@@ -2,10 +2,12 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
 import NavTop from './components/NavTop.vue';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
+import ToastNotification from './components/ToastNotification.vue';
 export default {
   components: {
     NavTop,
+    ToastNotification,
   },
   data() {
     return {
@@ -16,6 +18,11 @@ export default {
     ...mapActions(['initializeUser']),
     ...mapGetters(['darkMode']),
   },
+  computed: mapState({
+    toasts: (state) => {
+      return state.toasts;
+    },
+  }),
 
   mounted() {
     if (this.darkMode()) {
@@ -34,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <!-- <ModeSwitch /> -->
+  <ToastNotification :toasts="$store.state.toasts" />
   <NavTop v-if="isLogged"></NavTop>
   <RouterView />
 </template>

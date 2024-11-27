@@ -1,5 +1,6 @@
 <script>
 import { signIn, signUp } from '../auth';
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -25,6 +26,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['addToast']),
     async signInAcc() {
       try {
         if (this.$route.path === '/sign-in') {
@@ -40,29 +42,7 @@ export default {
         }
       } catch (error) {
         this.signmessage = '';
-        switch (error.message) {
-          case 'auth/user-not-found':
-            this.error = 'User not found';
-            break;
-          case 'auth/email-already-in-use':
-            this.error = 'Email already in use';
-            break;
-          case 'auth/invalid-credential':
-            this.error = 'Email or password is incorrect';
-            break;
-          case 'auth/invalid-email':
-            this.error = 'Invalid email';
-            break;
-          case 'auth/missing-email':
-            this.error = 'Missing email';
-            break;
-          case 'auth/missing-password':
-            this.error = 'Missing password';
-            break;
-          case 'auth/weak-password':
-            this.error = 'Weak password (Minumum 6 characters)';
-            break;
-        }
+        this.addToast(error.message);
       }
     },
   },
