@@ -2,10 +2,12 @@
 import { signOut } from '../auth';
 import { getCurrentUser } from '../auth';
 import ModeSwitch from './ModeSwitch.vue';
+import IconSignOut from './icons/IconSignOut.vue';
 
 export default {
   components: {
     ModeSwitch,
+    IconSignOut,
   },
   data() {
     return {
@@ -35,11 +37,7 @@ export default {
         <div class="notification-badge">3</div>
       </div> -->
       <button class="navtop__button__signout" @click="handleSignOut">
-        <img
-          class="navtop__button__signout__icon"
-          src="../assets/icons/signout.svg"
-          alt="Sign out"
-        />
+        <IconSignOut />
       </button>
     </nav>
   </header>

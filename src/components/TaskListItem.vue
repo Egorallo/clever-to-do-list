@@ -1,7 +1,11 @@
 <script>
 import { mapActions } from 'vuex';
+import IconTrash from './icons/IconTrash.vue';
 
 export default {
+  components: {
+    IconTrash,
+  },
   props: {
     task: {
       type: Object,
@@ -47,11 +51,7 @@ export default {
         v-show="hoveredOn === task.id"
         class="task-list-item__delete__button"
       >
-        <img
-          class="task-list-item__delete__button__img"
-          src="../assets/icons/trash.svg"
-          alt="Delete task"
-        />
+        <IconTrash :width="'20px'" :height="'20px'"></IconTrash>
       </button>
     </Transition>
   </div>
@@ -101,11 +101,6 @@ export default {
   line-height: 0;
   position: absolute;
   right: 0;
-}
-
-.task-list-item__delete__button__img {
-  width: 20px;
-  height: 20px;
 }
 
 .fade-enter-active,

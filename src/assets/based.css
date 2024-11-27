@@ -20,6 +20,7 @@
   --loader-secondary-color: #ecebeb;
   --bg-color-tasklistitem-hover: #f5f5f5;
   --bg-color-form: #fff;
+  --color-icon: #000;
 }
 
 .dark {
@@ -35,6 +36,7 @@
   --loader-secondary-color: #4c4c4c;
   --bg-color-tasklistitem-hover: #3f3f3f;
   --bg-color-form: #2c2c2c;
+  --color-icon: #ffffff;
 }
 
 #app {

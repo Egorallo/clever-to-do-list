@@ -1,7 +1,11 @@
 <script>
 import { mapActions } from 'vuex';
+import IconLessThan from './icons/IconLessThan.vue';
 
 export default {
+  components: {
+    IconLessThan,
+  },
   data() {
     return {
       task: {
@@ -62,7 +66,7 @@ export default {
     <section class="task-page__container">
       <div class="task-page__header">
         <RouterLink class="task-page__header__link" to="/">
-          <img class="task-page__header__icon" src="../assets/icons/less-than.svg" />
+          <IconLessThan />
         </RouterLink>
         <h1 class="task-page__header__text">New task</h1>
       </div>

@@ -1,9 +1,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import LoadingContent from './LoadingContent.vue';
+import IconLessThan from './icons/IconLessThan.vue';
+import IconTrash from './icons/IconTrash.vue';
 export default {
   components: {
     LoadingContent,
+    IconLessThan,
+    IconTrash,
   },
   data() {
     return {
@@ -83,7 +87,7 @@ export default {
     <section class="task-page__container">
       <div class="task-page__header" v-if="task">
         <RouterLink class="task-page__header__link" to="/">
-          <img class="task-page__header__icon" src="../assets/icons/less-than.svg" />
+          <IconLessThan />
         </RouterLink>
         <h1 class="task-page__header__text">Edit task</h1>
       </div>
@@ -131,9 +135,10 @@ export default {
         />
 
         <label :for="task.id" @click.stop class="done-status__circle"></label>
-        <button class="edit-task__button delete" @click="delTask(taskId)">
-          <img class="edit-task__button__img" src="../assets/icons/trash.svg" />
-        </button>
+        <a class="edit-task__button delete" @click="delTask(taskId)">
+          <IconTrash />
+        </a>
+
         <button
           class="edit-task__button update"
           @click="updTask(taskId, task)"
@@ -175,9 +180,9 @@ export default {
   font-family: 'Mulish', serif;
   font-size: 16px;
   width: 100%;
-  padding: 17px;
+  padding: 0;
   border: none;
-  border-radius: 12px;
+  border-radius: none;
   color: var(--button-text-color);
   cursor: pointer;
   transition: all 0.4s ease;
@@ -200,11 +205,6 @@ export default {
   height: 24px;
   width: 24px;
   background-color: transparent;
-}
-
-.edit-task__button__img {
-  width: 24px;
-  height: 24px;
 }
 
 .edit-task__button.update:hover {
