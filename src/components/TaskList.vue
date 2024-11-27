@@ -48,6 +48,7 @@ export default {
     ...mapActions(['fetchTasks', 'updateTask']),
     ...mapGetters(['tasksFromStore', 'userRegisteredDate']),
     goToAddTask() {
+      this.$store.commit('setSelectedDate', this.selectedDate);
       this.$router.push('/add-task');
     },
     goToEditTask(taskId) {

@@ -10,7 +10,7 @@ export default {
       taskId: this.$route.params.id,
       task: { title: '', description: '', date: '' },
       todaysDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
-      maxDate: new Date(new Date().setMonth(new Date().getMonth() + 1))
+      maxDate: new Date(new Date().setMonth(new Date().getFullYear() + 1))
         .toLocaleDateString()
         .split('/')
         .reverse()

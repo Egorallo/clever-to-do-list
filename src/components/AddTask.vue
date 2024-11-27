@@ -8,7 +8,7 @@ export default {
         title: '',
         description: '',
         done: false,
-        date: new Date().toLocaleDateString().split('/').reverse().join('-'),
+        date: this.$store.state.selectedDate,
       },
       todaysDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       maxDate: new Date(new Date().setMonth(new Date().getFullYear() + 1))

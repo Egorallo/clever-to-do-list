@@ -7,8 +7,12 @@ const store = createStore({
     tasks: [],
     userId: null,
     isDarkMode: localStorage.getItem('darkMode') === 'true',
+    selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
   },
   mutations: {
+    setSelectedDate(state, date) {
+      state.selectedDate = date;
+    },
     setDarkMode(state, isDark) {
       state.isDarkMode = isDark;
       document.documentElement.classList.toggle('dark', isDark);
