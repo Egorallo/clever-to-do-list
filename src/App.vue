@@ -3,11 +3,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/firebase';
 import NavTop from './components/NavTop.vue';
 import { mapActions, mapGetters } from 'vuex';
-import ModeSwitch from './components/ModeSwitch.vue';
 export default {
   components: {
     NavTop,
-    ModeSwitch,
   },
   data() {
     return {
@@ -36,7 +34,7 @@ export default {
 </script>
 
 <template>
-  <ModeSwitch />
+  <!-- <ModeSwitch /> -->
   <NavTop v-if="isLogged"></NavTop>
   <RouterView />
 </template>

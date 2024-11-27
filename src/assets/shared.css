@@ -47,11 +47,13 @@
 
 .task-page__title__input {
   font-family: 'Mulish', serif;
-  font-size: 16px;
+  font-size: 19px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  border: none;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 5px;
   background-color: transparent;
   color: var(--text-main-color);
   transition: all 0.4s ease;
@@ -65,12 +67,15 @@
 
 .task-page__description__input {
   font-family: 'Mulish', serif;
+  font-size: 14px;
   color: var(--text-secondary-color);
   width: 100%;
   height: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  border: none;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 5px;
   resize: none;
   background-color: transparent;
   transition: all 0.4s ease;
@@ -100,6 +105,11 @@
   color: transparent;
   background: transparent;
   cursor: pointer;
+}
+
+.task-page__chars-left {
+  color: #e9ab81;
+  font-size: 11px;
 }
 
 .done-status__checkbox {

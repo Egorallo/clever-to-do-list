@@ -8,7 +8,7 @@ export default {
     TaskListItem,
     LoadingContent,
     CalendarWidget,
-  },
+  }, // 34
   data() {
     return {
       hoveredOn: null,
@@ -16,17 +16,17 @@ export default {
       layout1: [
         { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 340, height: 50 },
 
-        { type: 'circle', cx: 12, cy: 142, r: 12 },
-        { type: 'rect', x: 35, y: 122, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 176, r: 12 },
+        { type: 'rect', x: 35, y: 156, rx: 15, ry: 15, width: 310, height: 40 },
 
-        { type: 'circle', cx: 12, cy: 198, r: 12 },
-        { type: 'rect', x: 35, y: 178, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 232, r: 12 },
+        { type: 'rect', x: 35, y: 212, rx: 15, ry: 15, width: 310, height: 40 },
 
-        { type: 'circle', cx: 12, cy: 254, r: 12 },
-        { type: 'rect', x: 35, y: 234, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 288, r: 12 },
+        { type: 'rect', x: 35, y: 268, rx: 15, ry: 15, width: 310, height: 40 },
 
-        { type: 'circle', cx: 12, cy: 310, r: 12 },
-        { type: 'rect', x: 35, y: 290, rx: 15, ry: 15, width: 310, height: 40 },
+        { type: 'circle', cx: 12, cy: 344, r: 12 },
+        { type: 'rect', x: 35, y: 324, rx: 15, ry: 15, width: 310, height: 40 },
       ],
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       startDate: '',
@@ -172,6 +172,7 @@ export default {
 .task-list__header__text {
   font-size: 24px;
   font-weight: bold;
+  margin: 0;
 }
 
 .task-list__container {
@@ -188,6 +189,7 @@ export default {
 }
 
 .task-list__button {
+  font-family: 'Mulish', serif;
   font-size: 16px;
   margin-top: 50px;
   width: 100%;
@@ -235,10 +237,15 @@ export default {
 .fade-leave-active {
   transition: all 0.5s ease;
 }
-.fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(-40px);
+  transform: translateY(-20px);
+}
+
+.fade-enter-to {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.4s ease;
 }
 
 .fade-leave-active {

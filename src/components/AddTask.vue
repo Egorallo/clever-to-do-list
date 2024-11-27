@@ -75,7 +75,7 @@ export default {
           maxlength="50"
           ref="inputField"
         />
-        <label>{{ charsLeftInput }}/50</label>
+        <label class="task-page__chars-left">{{ charsLeftInput }}/50</label>
       </section>
       <section class="task-page__description">
         <textarea
@@ -85,7 +85,7 @@ export default {
           maxlength="1000"
           ref="textareaField"
         ></textarea>
-        <label>{{ charsLeftTextarea }}/1000</label>
+        <label class="task-page__chars-left">{{ charsLeftTextarea }}/1000</label>
       </section>
       <section class="task-page__date">
         <input
@@ -111,6 +111,8 @@ export default {
   padding-top: 10px;
 }
 .add-task__button {
+  font-family: 'Mulish', serif;
+
   font-size: 16px;
   width: 100%;
   max-width: 400px;

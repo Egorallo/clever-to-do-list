@@ -191,6 +191,7 @@ export default {
 
 .active {
   background-color: var(--bg-color-calendar-selected);
+  border: 1px solid transparent;
   transition: all 0.4s ease;
 }
 

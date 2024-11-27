@@ -29,16 +29,19 @@ export default {
 
 <template>
   <div class="task-list-item" @mouseover="hoveredOn = task.id" @mouseleave="hoveredOn = null">
-    <input
-      type="checkbox"
-      :checked="task.done"
-      @click.stop="changeDoneStatus"
-      class="done-status__checkbox"
-      :id="task.id"
-    />
-    <label :for="task.id" @click.stop class="done-status__circle"></label>
-    <label class="task-list-item__title">{{ task.title }}</label>
-    <Transition name="fade">
+    <div class="checkbox-container">
+      <input
+        type="checkbox"
+        :checked="task.done"
+        @click.stop="changeDoneStatus"
+        class="done-status__checkbox"
+        :id="task.id"
+      />
+      <label :for="task.id" @click.stop class="done-status__circle"></label>
+      <label class="task-list-item__title">{{ task.title }}</label>
+    </div>
+
+    <Transition name="fade" tag="div">
       <button
         @click.stop="delTask(task.id)"
         v-show="hoveredOn === task.id"
@@ -55,14 +58,17 @@ export default {
 </template>
 
 <style scoped>
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
 .task-list-item {
   max-width: 400px;
   width: 100%;
   height: 45px;
   user-select: none;
   display: flex;
-  padding-left: 3px;
-  padding-right: 3px;
   align-items: center;
   justify-content: flex-start;
   gap: 5px;
@@ -81,7 +87,7 @@ export default {
 .task-list-item__title {
   font-size: 16px;
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
   color: var(--text-secondary-color);
   overflow: hidden;
   text-overflow: ellipsis;
@@ -91,7 +97,6 @@ export default {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 0;
   margin: 0;
   line-height: 0;
   position: absolute;

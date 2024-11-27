@@ -1,7 +1,12 @@
 <script>
 import { signOut } from '../auth';
 import { getCurrentUser } from '../auth';
+import ModeSwitch from './ModeSwitch.vue';
+
 export default {
+  components: {
+    ModeSwitch,
+  },
   data() {
     return {
       userEmail: '',
@@ -23,20 +28,12 @@ export default {
 
 <template>
   <header class="navtop">
-    <section v-if="this.$route.path === '/'" class="navtop__welcome">
-      Logged in as:&nbsp;
-      <span class="navtop__welcome__email">
-        {{ userEmail }}
-      </span>
-    </section>
-    <section v-else>
-      <p>Today is {{ today }}</p>
-    </section>
+    <ModeSwitch />
     <nav class="navtop__right">
-      <div class="notification">
+      <!-- <div class="notification">
         <img src="../assets/icons/notification-bell.svg" />
         <div class="notification-badge">3</div>
-      </div>
+      </div> -->
       <button class="navtop__button__signout" @click="handleSignOut">
         <img
           class="navtop__button__signout__icon"
@@ -56,6 +53,7 @@ export default {
   gap: 5px;
   color: var(--text-main-color);
   transition: all 0.4s ease;
+  margin-bottom: 20px;
 }
 
 .navtop__welcome__email {
@@ -65,6 +63,10 @@ export default {
 .notification {
   position: relative;
   cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+  border: none;
 }
 
 .notification-badge {
@@ -86,7 +88,7 @@ export default {
 .navtop__right {
   display: flex;
   gap: 3vw;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .navtop__button__signout {
@@ -94,10 +96,13 @@ export default {
   background-color: transparent;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  padding: 0;
+  line-height: 0;
+  margin: 0;
 }
 
 .navtop__button__signout__icon {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
 }
 </style>

@@ -16,10 +16,10 @@ export default {
         .reverse()
         .join('-'),
       layout2: [
-        { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 20 },
-        { type: 'rect', x: 0, y: 60, rx: 10, ry: 10, width: 345, height: 460 },
+        { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 30 },
+        { type: 'rect', x: 0, y: 80, rx: 10, ry: 10, width: 345, height: 350 },
       ],
-      loaderViewBox: '0 0 345 526',
+      loaderViewBox: '0 0 345 485',
       charsLeftInput: 0,
       charsLeftTextarea: 0,
     };
@@ -97,7 +97,7 @@ export default {
           maxlength="50"
           ref="inputField"
         />
-        <label>{{ charsLeftInput }}/50</label>
+        <label class="task-page__chars-left">{{ charsLeftInput }}/50</label>
       </section>
       <section v-if="task.date" class="task-page__description">
         <textarea
@@ -107,7 +107,7 @@ export default {
           maxlength="1000"
           ref="textareaField"
         ></textarea>
-        <label>{{ charsLeftTextarea }}/1000</label>
+        <label class="task-page__chars-left">{{ charsLeftTextarea }}/1000</label>
       </section>
       <section v-if="task.date" class="task-page__date">
         <input
@@ -172,6 +172,7 @@ export default {
 }
 
 .edit-task__button {
+  font-family: 'Mulish', serif;
   font-size: 16px;
   width: 100%;
   padding: 17px;

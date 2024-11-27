@@ -140,6 +140,7 @@ export default {
 }
 
 .sign-form__input {
+  font-family: 'Mulish', serif;
   max-width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -156,6 +157,7 @@ export default {
 }
 
 .sign-form__button {
+  font-family: 'Mulish', serif;
   width: 100%;
   padding: 10px;
   border: none;
