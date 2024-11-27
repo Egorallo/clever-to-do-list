@@ -159,6 +159,7 @@ export default {
   background-color: var(--button-main-color);
   color: var(--button-text-color);
   cursor: pointer;
+  transition: all 0.4s ease;
 }
 
 .sign-form__button:hover {

@@ -72,10 +72,13 @@ export default {
     changeDate(newDate) {
       this.selectedDate = newDate;
 
-      if (new Date(this.selectedDate) < new Date()) {
-        this.canAdd = false;
-      } else {
+      if (
+        new Date(this.selectedDate).toISOString().split('T')[0] >=
+        new Date().toISOString().split('T')[0]
+      ) {
         this.canAdd = true;
+      } else {
+        this.canAdd = false;
       }
     },
     filteredTasks() {
@@ -237,7 +240,7 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
-  transform: translateY(-80px);
+  transform: translateY(-40px);
 }
 
 .fade-leave-active {

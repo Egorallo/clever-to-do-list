@@ -79,11 +79,7 @@ export default {
         });
       }
       for (let i = 1; i <= totalDaysToRender; i++) {
-        const date = new Date(
-          startDate.getFullYear(),
-          startDate.getMonth(),
-          startDate.getDate() + i,
-        );
+        const date = new Date(now.getFullYear(), now.getMonth(), now.getDate() + i);
         days.push({
           date: date.getDate(),
           dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
