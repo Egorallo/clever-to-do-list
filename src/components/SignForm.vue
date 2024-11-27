@@ -28,21 +28,28 @@ export default {
   methods: {
     ...mapActions(['addToast']),
     async signInAcc() {
-      try {
-        if (this.$route.path === '/sign-in') {
-          this.error = null;
-          this.signmessage = 'Signing you in...';
-          await signIn(this.email, this.password);
-          this.$router.push('/');
-        } else {
-          this.error = null;
-          this.signmessage = 'Creating your account...';
-          await signUp(this.email, this.password, this.dateRegistered);
-          this.$router.push('/');
+      if (this.$route.path === '/sign-in') {
+        this.error = null;
+        this.signmessage = 'Signing you in...';
+        const result = await signIn(this.email, this.password);
+
+        if (!result.success) {
+          this.signmessage = '';
+          this.addToast(result.message);
+          return;
         }
-      } catch (error) {
-        this.signmessage = '';
-        this.addToast(error.message);
+        this.$router.push('/');
+      } else {
+        this.error = null;
+        this.signmessage = 'Creating your account...';
+        const result = await signUp(this.email, this.password, this.dateRegistered);
+
+        if (!result.success) {
+          this.signmessage = '';
+          this.addToast(result.message);
+          return;
+        }
+        this.$router.push('/');
       }
     },
   },
