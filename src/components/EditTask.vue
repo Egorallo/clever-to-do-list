@@ -67,6 +67,7 @@ export default {
       this.charsRemaining();
     },
     'task.description': function () {
+      console.log('1');
       this.charsRemaining();
     },
   },
@@ -107,7 +108,7 @@ export default {
       </section>
       <section v-if="task.date" class="task-page__description">
         <textarea
-          v-model.trim="task.description"
+          v-model="task.description"
           class="task-page__description__input"
           placeholder="Update your task description"
           maxlength="1000"
