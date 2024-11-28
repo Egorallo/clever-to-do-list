@@ -59,6 +59,7 @@ export default {
 }
 
 .navtop__profile-pic-text {
+  user-select: none;
   color: var(--button-text-color);
 }
 

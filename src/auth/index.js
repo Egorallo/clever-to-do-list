@@ -5,6 +5,7 @@ import {
   signOut as fireSignOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+import { ERROR_MESSAGES } from '@/constants/errors';
 
 export const getCurrentUser = async () => {
   return new Promise((resolve, reject) => {
@@ -24,16 +25,7 @@ export async function signIn(email, password) {
     const userCreds = await signInWithEmailAndPassword(auth, email, password);
     return userCreds;
   } catch (error) {
-    const errorMessages = {
-      'auth/user-not-found': 'User not found',
-      'auth/email-already-in-use': 'Email already in use',
-      'auth/invalid-credential': 'Email or password is incorrect',
-      'auth/invalid-email': 'Invalid email',
-      'auth/missing-email': 'Missing email',
-      'auth/missing-password': 'Missing password',
-      'auth/weak-password': 'Weak password (Minimum 6 characters)',
-    };
-    const message = errorMessages[error.code] || 'An unknown error occurred, refresh the page';
+    const message = ERROR_MESSAGES[error.code] || 'An unknown error occurred, refresh the page';
     return { failed: true, message };
   }
 }
@@ -43,16 +35,7 @@ export async function signUp(email, password) {
     const userCreds = await createUserWithEmailAndPassword(auth, email, password);
     return userCreds;
   } catch (error) {
-    const errorMessages = {
-      'auth/user-not-found': 'User not found',
-      'auth/email-already-in-use': 'Email already in use',
-      'auth/invalid-credential': 'Email or password is incorrect',
-      'auth/invalid-email': 'Invalid email',
-      'auth/missing-email': 'Missing email',
-      'auth/missing-password': 'Missing password',
-      'auth/weak-password': 'Weak password (Minimum 6 characters)',
-    };
-    const message = errorMessages[error.code] || 'An unknown error occurred, refresh the page';
+    const message = ERROR_MESSAGES[error.code] || 'An unknown error occurred, refresh the page';
     return { failed: true, message };
   }
 }

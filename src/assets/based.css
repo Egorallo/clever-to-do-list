@@ -7,6 +7,8 @@
   --border-calendar-color: #e6e6e6;
   --bg-color-calendar-selected: #212020;
   --bg-color-calendar-hover: #f4f4f4;
+  --scrollbar-calendar-color: #f4f4f4;
+  --scrollbar-calenadar-color-hover: #e6e6e6;
   --text-selected-day-calendar-color: #ffbe7e;
   --button-main-color: #ff7300;
   --button-uncompleted-color: #9f7af6;
@@ -31,6 +33,8 @@
   --border-calendar-color: #808080;
   --bg-color-calendar-selected: #ff7300;
   --bg-color-calendar-hover: #414141;
+  --scrollbar-calendar-color: #ccc;
+  --scrollbar-calenadar-color-hover: #aaa;
   --text-selected-day-calendar-color: #472715;
   --button-update-color: #7ae2ae;
   --loader-primary-color: #3b3b3b;
