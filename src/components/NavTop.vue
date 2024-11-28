@@ -15,6 +15,11 @@ export default {
       today: new Date().toLocaleDateString().split('/').join('.'),
     };
   },
+  computed: {
+    userPfp() {
+      return (this.userEmail || '').slice(0, 2);
+    },
+  },
   methods: {
     async handleSignOut() {
       await signOut();
@@ -32,6 +37,9 @@ export default {
   <header class="navtop">
     <ModeSwitch />
     <nav class="navtop__right">
+      <div class="navtop__profile-pic">
+        <div class="navtop__profile-pic-text">{{ userPfp }}</div>
+      </div>
       <button class="navtop__button__signout" @click="handleSignOut">
         <IconSignOut />
       </button>
@@ -40,6 +48,20 @@ export default {
 </template>
 
 <style scoped>
+.navtop__profile-pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--button-main-color);
+}
+
+.navtop__profile-pic-text {
+  color: var(--button-text-color);
+}
+
 .navtop {
   display: flex;
   justify-content: space-between;
@@ -81,8 +103,8 @@ export default {
 
 .navtop__right {
   display: flex;
-  gap: 3vw;
-  align-items: flex-end;
+  gap: 4vw;
+  align-items: center;
 }
 
 .navtop__button__signout {

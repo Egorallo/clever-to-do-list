@@ -39,6 +39,11 @@
   --color-icon: #ffffff;
 }
 
+html {
+  background-color: var(--bg-color);
+  transition: all 0.4s ease;
+}
+
 body {
   padding: 0;
 }
