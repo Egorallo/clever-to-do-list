@@ -83,7 +83,7 @@ export default {
       </section>
       <section class="task-page__description">
         <textarea
-          v-model.trim="task.description"
+          v-model="task.description"
           class="task-page__description__input"
           placeholder="Enter your task description"
           maxlength="1000"

@@ -103,11 +103,10 @@ export default {
       return this.tasksFromStore();
     },
     formattedDate() {
-      return new Date(this.selectedDate).toDateString().split(' ').slice(1).join(' ');
+      return new Date(this.selectedDate).toLocaleDateString().split('/').join('.');
     },
     amountOfTasksToday() {
-      const word = this.filteredTasks().length === 1 ? 'Task' : 'Tasks';
-      return `${this.filteredTasks().length} ${word} on ${this.formattedDate}`;
+      return `${this.formattedDate}  <br>📝  ${this.filteredTasks().length} `;
     },
     uncompletedTasks() {
       const tasks = this.filteredTasks();
@@ -129,9 +128,7 @@ export default {
         :tasks="tasks"
         @changed-date="changeDate"
       ></CalendarWidget>
-      <p class="task-list__container__quantity">
-        {{ amountOfTasksToday }}
-      </p>
+      <p class="task-list__container__quantity" v-html="amountOfTasksToday"></p>
       <transition-group name="fade" tag="div" class="task-list__container__tasks">
         <TaskListItem
           v-for="task in filteredTasks()"

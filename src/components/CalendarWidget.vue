@@ -133,7 +133,26 @@ export default {
 }
 
 .calendar__container::-webkit-scrollbar {
-  display: none;
+  height: 10px;
+}
+
+.calendar__container::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.calendar__container:hover::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+}
+
+.calendar__container::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+.calendar__container::-webkit-scrollbar-track {
+  background-color: transparent;
 }
 
 .calendar__container__item {
