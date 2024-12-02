@@ -3,7 +3,7 @@ import SignUpView from '../views/SignUpView.vue';
 import SignInView from '../views/SignInView.vue';
 import AddTask from '@/components/AddTask.vue';
 import EditTask from '@/components/EditTask.vue';
-import { getCurrentUser } from '@/auth';
+import { getCurrentUser } from '../services/authService';
 import TaskList from '@/components/TaskList.vue';
 import NotFound from '@/components/NotFound.vue';
 

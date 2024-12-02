@@ -1,11 +1,11 @@
-import { auth } from '../firebase';
+import { auth } from './firebaseInit';
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut as fireSignOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { ERROR_MESSAGES } from '@/constants/errors';
+import { ERROR_MESSAGES } from '../constants/errors';
 
 export const getCurrentUser = async () => {
   return new Promise((resolve, reject) => {

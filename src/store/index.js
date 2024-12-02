@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import { addNewTask, getTasks, deleteTask, updateTask } from '@/firestore';
-import { getCurrentUser } from '@/auth';
+import { addNewTask, getTasks, deleteTask, updateTask } from '../services/taskService';
+import { getCurrentUser } from '../services/authService';
 
 const store = createStore({
   state: {
@@ -84,7 +84,7 @@ const store = createStore({
         commit('setTasks', tasks);
       }
     },
-    async updateeTask({ state }, { taskId, updatedData }) {
+    async updateTask({ state }, { taskId, updatedData }) {
       if (!state.userId) {
         return;
       }

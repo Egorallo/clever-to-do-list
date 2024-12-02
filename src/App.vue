@@ -1,6 +1,6 @@
 <script>
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/firebase';
+import { auth } from './services/firebaseInit';
 import NavTop from './components/NavTop.vue';
 import { mapActions, mapGetters, mapState } from 'vuex';
 import ToastNotification from './components/ToastNotification.vue';

@@ -1,5 +1,5 @@
 import { doc, deleteDoc, updateDoc, getDoc, getDocs, addDoc, collection } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { db } from './firebaseInit';
 
 export async function addNewTask(userId, newTask) {
   const userTasksRef = collection(doc(db, 'users', userId), 'tasks');
