@@ -67,7 +67,6 @@ export default {
       this.charsRemaining();
     },
     'task.description': function () {
-      console.log('1');
       this.charsRemaining();
     },
   },

@@ -80,12 +80,11 @@ const store = createStore({
       try {
         await deleteTask(state.userId, taskId);
       } catch (error) {
-        console.error('Error deleting task from Firestore:', error);
         const tasks = await getTasks(state.userId);
         commit('setTasks', tasks);
       }
     },
-    async updateTask({ state }, { taskId, updatedData }) {
+    async updateeTask({ state }, { taskId, updatedData }) {
       if (!state.userId) {
         return;
       }
