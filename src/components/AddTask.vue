@@ -28,6 +28,12 @@ export default {
     isTitleEmpty() {
       return this.task.title.trim() === '';
     },
+    charsTitle() {
+      return this.task.title.length;
+    },
+    charsDescription() {
+      return this.task.description.length;
+    },
   },
   methods: {
     ...mapActions(['addTask']),
@@ -38,24 +44,6 @@ export default {
       this.task.done = false;
       this.task.date = new Date().toISOString().split('T')[0];
       this.$router.push('/');
-    },
-    charsRemaining() {
-      this.$nextTick(() => {
-        if (this.$refs.inputField) {
-          this.charsLeftInput = this.$refs.inputField.value.length;
-        }
-        if (this.$refs.textareaField) {
-          this.charsLeftTextarea = this.$refs.textareaField.value.length;
-        }
-      });
-    },
-  },
-  watch: {
-    'task.title': function () {
-      this.charsRemaining();
-    },
-    'task.description': function () {
-      this.charsRemaining();
     },
   },
 };
@@ -79,7 +67,7 @@ export default {
           maxlength="50"
           ref="inputField"
         />
-        <label class="task-page__chars-left">{{ charsLeftInput }}/50</label>
+        <label class="task-page__chars-left">{{ charsTitle }}/50</label>
       </section>
       <section class="task-page__description">
         <textarea
@@ -89,7 +77,7 @@ export default {
           maxlength="1000"
           ref="textareaField"
         ></textarea>
-        <label class="task-page__chars-left">{{ charsLeftTextarea }}/1000</label>
+        <label class="task-page__chars-left">{{ charsDescription }}/1000</label>
       </section>
       <section class="task-page__date">
         <input

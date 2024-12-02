@@ -40,28 +40,16 @@ export default {
     changeDoneStatus() {
       this.$emit('change-done-status', this.task, !this.task.done);
     },
-    charsRemaining() {
-      this.$nextTick(() => {
-        if (this.$refs.inputField) {
-          this.charsLeftInput = this.$refs.inputField.value.length;
-        }
-        if (this.$refs.textareaField) {
-          this.charsLeftTextarea = this.$refs.textareaField.value.length;
-        }
-      });
-    },
   },
   computed: {
     isTitleEmpty() {
       return (this.task.title || '').trim() === '';
     },
-  },
-  watch: {
-    'task.title': function () {
-      this.charsRemaining();
+    charsTitle() {
+      return this.task.title.length;
     },
-    'task.description': function () {
-      this.charsRemaining();
+    charsDescription() {
+      return this.task.description.length;
     },
   },
   async created() {
@@ -97,7 +85,7 @@ export default {
           maxlength="50"
           ref="inputField"
         />
-        <label class="task-page__chars-left">{{ charsLeftInput }}/50</label>
+        <label class="task-page__chars-left">{{ charsTitle }}/50</label>
       </section>
       <section v-if="task.date" class="task-page__description">
         <textarea
@@ -107,7 +95,7 @@ export default {
           maxlength="1000"
           ref="textareaField"
         ></textarea>
-        <label class="task-page__chars-left">{{ charsLeftTextarea }}/1000</label>
+        <label class="task-page__chars-left">{{ charsDescription }}/1000</label>
       </section>
       <section v-if="task.date" class="task-page__date">
         <input
