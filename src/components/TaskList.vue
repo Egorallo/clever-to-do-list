@@ -3,6 +3,7 @@ import TaskListItem from './TaskListItem.vue';
 import LoadingContent from './LoadingContent.vue';
 import CalendarWidget from './CalendarWidget.vue';
 import { mapActions, mapGetters } from 'vuex';
+import { LAYOUT_1 } from '../constants/layouts';
 export default {
   components: {
     TaskListItem,
@@ -13,26 +14,10 @@ export default {
     return {
       hoveredOn: null,
       loading: true,
-      layout1: [
-        { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 945, height: 600 },
-
-        // { type: 'rect', x: 0, y: 7, rx: 15, ry: 15, width: 945, height: 50 },
-
-        // { type: 'circle', cx: 12, cy: 176, r: 12 },
-        // { type: 'rect', x: 35, y: 156, rx: 15, ry: 15, width: 310, height: 40 },
-
-        // { type: 'circle', cx: 12, cy: 232, r: 12 },
-        // { type: 'rect', x: 35, y: 212, rx: 15, ry: 15, width: 310, height: 40 },
-
-        // { type: 'circle', cx: 12, cy: 288, r: 12 },
-        // { type: 'rect', x: 35, y: 268, rx: 15, ry: 15, width: 310, height: 40 },
-
-        // { type: 'circle', cx: 12, cy: 344, r: 12 },
-        // { type: 'rect', x: 35, y: 324, rx: 15, ry: 15, width: 310, height: 40 },
-      ],
       selectedDate: new Date().toLocaleDateString().split('/').reverse().join('-'),
       startDate: '',
       canAdd: true,
+      layout: LAYOUT_1,
     };
   },
   methods: {
@@ -151,7 +136,7 @@ export default {
         </div>
       </transition-group>
     </section>
-    <LoadingContent :view-box="'0 -10 945 1000'" :layout="layout1" v-else />
+    <LoadingContent :view-box="'0 -10 945 1000'" :layout="layout" v-else />
   </main>
 </template>
 

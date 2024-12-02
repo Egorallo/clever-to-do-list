@@ -3,6 +3,7 @@ import { mapActions, mapGetters } from 'vuex';
 import LoadingContent from './LoadingContent.vue';
 import IconLessThan from './icons/IconLessThan.vue';
 import IconTrash from './icons/IconTrash.vue';
+import { LAYOUT_2 } from '../constants/layouts';
 export default {
   components: {
     LoadingContent,
@@ -19,15 +20,9 @@ export default {
         .split('/')
         .reverse()
         .join('-'),
-      layout2: [
-        { type: 'rect', x: 0, y: 0, rx: 15, ry: 15, width: 945, height: 500 },
-
-        // { type: 'rect', x: 0, y: 0, rx: 10, ry: 10, width: 345, height: 30 },
-        // { type: 'rect', x: 0, y: 80, rx: 10, ry: 10, width: 345, height: 350 },
-      ],
-      loaderViewBox: '0 0 945 500',
       charsLeftInput: 0,
       charsLeftTextarea: 0,
+      layout: LAYOUT_2,
     };
   },
   methods: {
@@ -38,7 +33,6 @@ export default {
       this.$router.push('/');
     },
     updTask(taskId, updatedData) {
-      // eslint-disable-next-line no-unused-vars
       const { id, ...dataWithoutId } = updatedData;
       this.updateTask({ taskId, updatedData: dataWithoutId });
       this.$router.push('/');
@@ -125,7 +119,7 @@ export default {
         />
       </section>
 
-      <LoadingContent v-else :layout="layout2" :view-box="loaderViewBox"></LoadingContent>
+      <LoadingContent v-else :layout="layout" :view-box="'0 0 945 500'"></LoadingContent>
 
       <div class="edit-task__button__container">
         <input
