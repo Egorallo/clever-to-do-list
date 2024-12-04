@@ -1,5 +1,5 @@
 <script>
-import { signIn, signUp } from '../auth';
+import { signIn, signUp } from '../services/authService';
 import { mapActions } from 'vuex';
 export default {
   data() {

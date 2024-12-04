@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-import { addNewTask, getTasks, deleteTask, updateTask } from '@/firestore';
-import { getCurrentUser } from '@/auth';
+import { addNewTask, getTasks, deleteTask, updateTask } from '../services/taskService';
+import { getCurrentUser } from '../services/authService';
 
 const store = createStore({
   state: {
@@ -80,7 +80,6 @@ const store = createStore({
       try {
         await deleteTask(state.userId, taskId);
       } catch (error) {
-        console.error('Error deleting task from Firestore:', error);
         const tasks = await getTasks(state.userId);
         commit('setTasks', tasks);
       }

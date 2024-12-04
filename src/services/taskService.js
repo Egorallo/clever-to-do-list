@@ -1,18 +1,14 @@
 import { doc, deleteDoc, updateDoc, getDoc, getDocs, addDoc, collection } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { db } from './firebaseInit';
 
 export async function addNewTask(userId, newTask) {
-  try {
-    const userTasksRef = collection(doc(db, 'users', userId), 'tasks');
-    await addDoc(userTasksRef, {
-      title: newTask.title,
-      description: newTask.description,
-      done: newTask.done,
-      date: newTask.date,
-    });
-  } catch (error) {
-    console.error('Error adding task:', error);
-  }
+  const userTasksRef = collection(doc(db, 'users', userId), 'tasks');
+  await addDoc(userTasksRef, {
+    title: newTask.title,
+    description: newTask.description,
+    done: newTask.done,
+    date: newTask.date,
+  });
 }
 
 export async function deleteTask(userId, taskId) {
@@ -21,12 +17,8 @@ export async function deleteTask(userId, taskId) {
 }
 
 export async function updateTask(userId, taskId, updatedData) {
-  try {
-    const taskDocRef = doc(db, `users/${userId}/tasks`, taskId);
-    await updateDoc(taskDocRef, updatedData);
-  } catch (error) {
-    console.error('Error updating task:', error);
-  }
+  const taskDocRef = doc(db, `users/${userId}/tasks`, taskId);
+  await updateDoc(taskDocRef, updatedData);
 }
 
 export async function getTaskById(userId, taskId) {
@@ -34,8 +26,6 @@ export async function getTaskById(userId, taskId) {
   const taskDoc = await getDoc(taskDocRef);
   if (taskDoc.exists()) {
     return { id: taskDoc.id, ...taskDoc.data() };
-  } else {
-    console.error('No such document');
   }
 }
 

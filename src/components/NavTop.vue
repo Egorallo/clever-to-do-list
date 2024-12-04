@@ -1,6 +1,5 @@
 <script>
-import { signOut } from '../auth';
-import { getCurrentUser } from '../auth';
+import { getCurrentUser, signOut } from '../services/authService';
 import ModeSwitch from './ModeSwitch.vue';
 import IconSignOut from './icons/IconSignOut.vue';
 
