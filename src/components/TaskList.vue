@@ -60,14 +60,9 @@ export default {
     changeDate(newDate) {
       this.selectedDate = newDate;
 
-      if (
+      this.canAdd =
         new Date(this.selectedDate).toISOString().split('T')[0] >=
-        new Date().toISOString().split('T')[0]
-      ) {
-        this.canAdd = true;
-      } else {
-        this.canAdd = false;
-      }
+        new Date().toISOString().split('T')[0];
     },
     filteredTasks() {
       if (!this.loading) {

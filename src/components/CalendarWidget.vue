@@ -57,6 +57,13 @@ export default {
         });
       }
     },
+    getDayClassNames(day) {
+      return {
+        active: this.selectedDate === day.dateForFilter,
+        sunday: day.dayName === 'Sun' && this.selectedDate !== day.dateForFilter,
+        current: day.dateForFilter === new Date().toLocaleDateString('en-CA'),
+      };
+    },
   },
   computed: {
     daysToRender() {
@@ -102,11 +109,7 @@ export default {
       <div v-for="(day, index) in daysToRender" :key="index">
         <div
           class="calendar__container__item"
-          :class="{
-            active: selectedDate === day.dateForFilter,
-            sunday: day.dayName === 'Sun' && selectedDate !== day.dateForFilter,
-            current: day.dateForFilter === new Date().toLocaleDateString('en-CA'),
-          }"
+          :class="getDayClassNames(day)"
           @click="changeDate(day.dateForFilter)"
         >
           <span class="calendar__container__item__day">{{ day.dayName }}</span>
